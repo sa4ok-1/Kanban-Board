@@ -1,16 +1,13 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Button } from "@mui/material";
-
+import DashboardLayoutPage from "./pages/DashboardLayoutPage"
 const theme = createTheme();
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline /> 
-      <Button variant="contained" color="primary">
-        Натисни мене
-      </Button>
+      <DashboardLayoutPage/>
     </ThemeProvider>
   );
 }
