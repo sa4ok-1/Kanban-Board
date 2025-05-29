@@ -14,11 +14,18 @@ import {
   TableRow,
   TableCell,
   Paper,
+  Card,
+  CardContent,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import DownloadIcon from "@mui/icons-material/Download";
 import AddIcon from "@mui/icons-material/Add";
+import ViewListIcon from "@mui/icons-material/ViewList";
+import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import type { TaskStatus, TaskFormValues } from "../types/types";
-import AddTaskModal from "./AddTaskModal";
+import AddTaskModal from "../components/AddTaskModal";
 
 export default function TasksPage() {
   const [taskStatus, setTaskStatus] = React.useState<TaskStatus>("In Progress");
@@ -26,21 +33,28 @@ export default function TasksPage() {
   const [time, setTime] = React.useState("this_month");
   const [openModal, setOpenModal] = React.useState(false);
   const [tasks, setTasks] = React.useState<TaskFormValues[]>([]);
+  const [viewMode, setViewMode] = React.useState<"list" | "grid">("list");
 
   const handleSubmit = (data: TaskFormValues) => {
     console.log("Created Task:", data);
     setTasks([...tasks, data]);
   };
 
+  const handleViewModeChange = (_: any, newViewMode: "list" | "grid") => {
+    if (newViewMode !== null) {
+      setViewMode(newViewMode);
+    }
+  };
+
   return (
-    <Box width="100%" maxWidth={1200}>
+    <Box padding={5} width="100%">
       <Stack
         direction="row"
         justifyContent="space-between"
         alignItems="center"
         mb={2}
       >
-        <Typography variant="h5" fontSize={30} color="##6366F1">
+        <Typography variant="h5" fontSize={30} color="primary.main">
           Task
         </Typography>
         <Box display="flex" gap={1}>
@@ -94,46 +108,109 @@ export default function TasksPage() {
             <MenuItem value="this_month">This month</MenuItem>
           </Select>
         </FormControl>
+
+        <ToggleButtonGroup
+          value={viewMode}
+          exclusive
+          onChange={handleViewModeChange}
+          size="small"
+        >
+          <ToggleButton value="list" aria-label="list view">
+            <ViewListIcon />
+          </ToggleButton>
+          <ToggleButton value="grid" aria-label="grid view">
+            <ViewModuleIcon />
+          </ToggleButton>
+        </ToggleButtonGroup>
       </Stack>
 
-      <Paper
-        sx={{
-          width: "100%",
-          overflow: "hidden",
-          boxShadow: 3,
-          border: "1px solid",
-          borderColor: "divider",
-          borderRadius: 1,
-          Height: "(100vh - 300px)",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Description</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Priority</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Owner</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tasks.map((task, index) => (
-              <TableRow key={index}>
-                <TableCell>{task.description}</TableCell>
-                <TableCell>{task.type}</TableCell>
-                <TableCell>{task.status}</TableCell>
-                <TableCell>{task.priority}</TableCell>
-                <TableCell>{task.date}</TableCell>
-                <TableCell>{task.owner}</TableCell>
+      {viewMode === "list" ? (
+        <Paper
+          sx={{
+            width: "100%",
+            overflow: "hidden",
+            boxShadow: 3,
+            border: "1px solid",
+            borderColor: "divider",
+            borderRadius: 1,
+            height: "calc(100vh - 300px)",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Description</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Priority</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Owner</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
+            </TableHead>
+            <TableBody>
+              {tasks.length > 0 ? (
+                tasks.map((task, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{task.description}</TableCell>
+                    <TableCell>{task.type}</TableCell>
+                    <TableCell>{task.status}</TableCell>
+                    <TableCell>{task.priority}</TableCell>
+                    <TableCell>{task.date}</TableCell>
+                    <TableCell>{task.owner}</TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={6} align="center">
+                    No tasks available
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </Paper>
+      ) : (
+        <Grid container spacing={2}>
+          {tasks.length > 0 ? (
+            tasks.map((task, index) => (
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <Card
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <CardContent>
+                    <Typography variant="h6">{task.description}</Typography>
+                    <Typography color="text.secondary">
+                      Type: {task.type}
+                    </Typography>
+                    <Typography color="text.secondary">
+                      Status: {task.status}
+                    </Typography>
+                    <Typography color="text.secondary">
+                      Priority: {task.priority}
+                    </Typography>
+                    <Typography color="text.secondary">
+                      Date: {task.date}
+                    </Typography>
+                    <Typography color="text.secondary">
+                      Owner: {task.owner}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))
+          ) : (
+            <Grid item xs={12}>
+              <Typography align="center">No tasks available</Typography>
+            </Grid>
+          )}
+        </Grid>
+      )}
     </Box>
   );
 }
