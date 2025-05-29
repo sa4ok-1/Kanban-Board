@@ -7,35 +7,35 @@ const theme = extendTheme({
       palette: {
         mode: "light",
         primary: {
-          main: "#4361ee", // Яскравий синій
+          main: "#5C7CFA",
           contrastText: "#ffffff",
         },
         secondary: {
-          main: "#f72585", // Яскраво-рожевий
+          main: "#FF6B81",
         },
         background: {
-          default: "#f8f9ff", // Дуже світлий синюватий
+          default: "#F9FAFC",
           paper: "#ffffff",
         },
         text: {
-          primary: "#2b2d42", // Темно-синій
-          secondary: "#6c757d",
+          primary: "#2E2E3A",
+          secondary: "#6C757D",
         },
-        divider: "#e0e0e0",
-        info: { 
-          main: "#4895ef", // Світло-синій
+        divider: "#E3E6EF",
+        info: {
+          main: "#339AF0",
           contrastText: "#ffffff",
         },
-        success: { 
-          main: "#4cc9f0", // Бірюзовий
+        success: {
+          main: "#51CF66",
           contrastText: "#ffffff",
         },
-        warning: { 
-          main: "#f8961e", // Яскраво-жовтий
-          contrastText: "#ffffff",
+        warning: {
+          main: "#FAB005",
+          contrastText: "#000000",
         },
-        error: { 
-          main: "#ef233c", // Яскраво-червоний
+        error: {
+          main: "#FF6B6B",
           contrastText: "#ffffff",
         },
       },
@@ -44,44 +44,43 @@ const theme = extendTheme({
       palette: {
         mode: "dark",
         primary: {
-          main: "#4895ef", // Світло-синій
+          main: "#748FFC",
           contrastText: "#ffffff",
         },
         secondary: {
-          main: "#f72585", // Яскраво-рожевий
+          main: "#FF8787",
         },
         background: {
-          default: "#1a1a2e", // Глибокий темно-синій
-          paper: "#16213e", // Темно-синій
+          default: "#1E1E2F",
+          paper: "#252539",
         },
         text: {
-          primary: "#ffffff",
-          secondary: "#e2e2e2",
+          primary: "#F1F3F5",
+          secondary: "#ADB5BD",
         },
-        divider: "#4a4e69",
-        info: { 
-          main: "#4cc9f0", // Бірюзовий
+        divider: "#373A4F",
+        info: {
+          main: "#22B8CF",
           contrastText: "#ffffff",
         },
-        success: { 
-          main: "#3a86ff", // Яскраво-синій
+        success: {
+          main: "#40C057",
           contrastText: "#ffffff",
         },
-        warning: { 
-          main: "#ffbe0b", // Яскраво-жовтий
+        warning: {
+          main: "#FFD43B",
           contrastText: "#000000",
         },
-        error: { 
-          main: "#ff006e", // Яскраво-рожевий
+        error: {
+          main: "#FF8787",
           contrastText: "#ffffff",
         },
       },
     },
   },
   colorSchemeSelector: "data-theme",
-
   typography: {
-    fontFamily: "Poppins, sans-serif",
+    fontFamily: "Roboto, sans-serif",
     button: {
       fontWeight: 600,
     },
@@ -89,7 +88,7 @@ const theme = extendTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
-        body: { 
+        body: {
           margin: 0,
           transition: "background-color 0.3s ease",
         },
@@ -121,12 +120,12 @@ const theme = extendTheme({
           borderRadius: "8px",
           padding: "8px 16px",
           "&:hover": {
-            backgroundColor: "rgba(67, 97, 238, 0.1)",
+            backgroundColor: "rgba(92, 124, 250, 0.1)", // primary з прозорістю
           },
           "&.Mui-selected": {
-            backgroundColor: "rgba(67, 97, 238, 0.2)",
+            backgroundColor: "rgba(92, 124, 250, 0.2)",
             "&:hover": {
-              backgroundColor: "rgba(67, 97, 238, 0.25)",
+              backgroundColor: "rgba(92, 124, 250, 0.25)",
             },
           },
         },

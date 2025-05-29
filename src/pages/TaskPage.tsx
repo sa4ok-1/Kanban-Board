@@ -25,7 +25,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import type { TaskStatus, TaskFormValues } from "../types/types";
-import AddTaskModal from "../components/AddTaskModal";
+import AddTaskModal from "./AddTaskModal";
 
 export default function TasksPage() {
   const [taskStatus, setTaskStatus] = React.useState<TaskStatus>("In Progress");
