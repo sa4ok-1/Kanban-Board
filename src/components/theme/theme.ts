@@ -15,7 +15,7 @@ const theme = extendTheme({
         },
         background: {
           default: "#F9FAFC",
-          paper: "#ffffff",
+          paper: "#F9FAFC",
         },
         text: {
           primary: "#2E2E3A",
@@ -44,36 +44,37 @@ const theme = extendTheme({
       palette: {
         mode: "dark",
         primary: {
-          main: "#748FFC",
-          contrastText: "#ffffff",
+          main: "#3B82F6",
+          contrastText: "#FFFFFF",
         },
         secondary: {
-          main: "#FF8787",
+          main: "#7C3AED",
+          contrastText: "#FFFFFF",
         },
         background: {
-          default: "#1E1E2F",
-          paper: "#252539",
+          default: "#0D1117",
+          paper: "#161B22",
         },
         text: {
-          primary: "#F1F3F5",
-          secondary: "#ADB5BD",
+          primary: "#C9D1D9",
+          secondary: "#8B949E",
         },
-        divider: "#373A4F",
+        divider: "#30363D",
         info: {
-          main: "#22B8CF",
-          contrastText: "#ffffff",
+          main: "#0EA5E9",
+          contrastText: "#000000",
         },
         success: {
-          main: "#40C057",
-          contrastText: "#ffffff",
+          main: "#22C55E",
+          contrastText: "#000000",
         },
         warning: {
-          main: "#FFD43B",
+          main: "#EAB308",
           contrastText: "#000000",
         },
         error: {
-          main: "#FF8787",
-          contrastText: "#ffffff",
+          main: "#EF4444",
+          contrastText: "#FFFFFF",
         },
       },
     },
@@ -94,6 +95,15 @@ const theme = extendTheme({
         },
       },
     },
+    MuiListItemText: {
+      styleOverrides: {
+        primary: {
+          fontWeight: 600,
+          fontSize: "18px",
+        },
+      },
+    },
+
     MuiButton: {
       styleOverrides: {
         root: {
@@ -106,6 +116,7 @@ const theme = extendTheme({
             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
           },
         },
+
         contained: {
           "&:hover": {
             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
@@ -120,7 +131,7 @@ const theme = extendTheme({
           borderRadius: "8px",
           padding: "8px 16px",
           "&:hover": {
-            backgroundColor: "rgba(92, 124, 250, 0.1)", // primary з прозорістю
+            backgroundColor: "rgba(92, 124, 250, 0.1)",
           },
           "&.Mui-selected": {
             backgroundColor: "rgba(92, 124, 250, 0.2)",
@@ -141,15 +152,18 @@ const theme = extendTheme({
     },
     MuiCard: {
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
           borderRadius: "16px",
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
+          border: "1px solid white",
+          color: theme.palette.text.secondaryChannel,
+
           "&:hover": {
             transform: "translateY(-4px)",
             boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1)",
           },
-        },
+        }),
       },
     },
   },

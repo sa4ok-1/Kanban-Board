@@ -4,7 +4,7 @@ export default function PageContent() {
   return (
     <Box
       sx={{
-        py: 4,
+        py: 1,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

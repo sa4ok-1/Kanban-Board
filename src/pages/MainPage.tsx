@@ -6,22 +6,24 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import KanbanIcon from "@mui/icons-material/ViewKanban";
 import ProfileIcon from "@mui/icons-material/Person";
 import { Outlet } from "react-router-dom";
+import AppTitle from "../components/DashBoard/AppTitle";
+import ToolbarActionsSearch from "../components/DashBoard/ToolbarSearch";
+import SidebarFooter from "../components/DashBoard/Sidebar";
+import PageContent from "../components/DashBoard/PageContent";
+import theme from "components/theme/theme";
 
-import theme from "styles/theme";
-import AppTitle from "../components/layout/AppTitle";
-import ToolbarActionsSearch from "../components/layout/ToolbarSearch";
-import SidebarFooter from "../components/layout/Sidebar";
-import PageContent from "../components/layout/PageContent";
-
-const NAVIGATION: Navigation = [
-  { kind: "header", title: "Main items" },
-  { segment: "Tasks", title: "Tasks", icon: <TasksIcon /> },
-  { segment: "Dashboard", title: "Dashboard", icon: <DashboardIcon /> },
-  { segment: "Kanban", title: "Kanban", icon: <KanbanIcon /> },
-  { segment: "Profile", title: "Profile", icon: <ProfileIcon /> },
-];
+import { useTranslation } from "react-i18next";
 
 export default function DashboardLayoutSlots() {
+  const { t } = useTranslation();
+
+  const NAVIGATION: Navigation = [
+    { segment: "Tasks", title: t("Tasks"),  icon: <TasksIcon /> },
+    { segment: "Dashboard", title: t("Dashboard"), icon: <DashboardIcon /> },
+    { segment: "Kanban", title: t("Kanban"), icon: <KanbanIcon /> },
+    { segment: "Profile", title: t("Profile"), icon: <ProfileIcon /> },
+  ];
+
   return (
     <AppProvider navigation={NAVIGATION} theme={theme}>
       <CssBaseline />

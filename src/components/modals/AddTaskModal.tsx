@@ -9,7 +9,8 @@ import {
   MenuItem,
   Stack,
 } from "@mui/material";
-import type { TaskFormValues } from "../types/types";
+import { nanoid } from "nanoid";
+import type { TaskFormValues } from "../types/type";
 
 interface Props {
   open: boolean;
@@ -18,12 +19,10 @@ interface Props {
 }
 
 const initialValues: TaskFormValues = {
+  id: "",
+  title: "",
   description: "",
-  type: "Bug",
   status: "To Do",
-  priority: "Medium",
-  date: "",
-  owner: "",
 };
 
 const AddTaskModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
@@ -37,7 +36,9 @@ const AddTaskModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    onSubmit(formData);
+    if (!formData.title.trim() || !formData.description.trim()) return;
+    const newTask = { ...formData, id: nanoid() };
+    onSubmit(newTask);
     setFormData(initialValues);
     onClose();
   };
@@ -48,6 +49,15 @@ const AddTaskModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
       <DialogContent>
         <Stack spacing={2} mt={1}>
           <TextField
+            name="title"
+            label="Title"
+            fullWidth
+            multiline
+            rows={3}
+            value={formData.title}
+            onChange={handleChange}
+          />
+          <TextField
             name="description"
             label="Description"
             fullWidth
@@ -56,20 +66,7 @@ const AddTaskModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
             value={formData.description}
             onChange={handleChange}
           />
-          <TextField
-            name="type"
-            label="Task Type"
-            select
-            fullWidth
-            value={formData.type}
-            onChange={handleChange}
-          >
-            {["Bug", "Feature", "Improvement"].map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
+
           <TextField
             name="status"
             label="Task Status"
@@ -84,40 +81,12 @@ const AddTaskModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
               </MenuItem>
             ))}
           </TextField>
-          <TextField
-            name="priority"
-            label="Priority"
-            select
-            fullWidth
-            value={formData.priority}
-            onChange={handleChange}
-          >
-            {["Low", "Medium", "High"].map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            name="date"
-            label="Task Date"
-            type="date"
-            fullWidth
-            InputLabelProps={{ shrink: true }}
-            value={formData.date}
-            onChange={handleChange}
-          />
-          <TextField
-            name="owner"
-            label="Task Owner"
-            fullWidth
-            value={formData.owner}
-            onChange={handleChange}
-          />
         </Stack>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
+      <DialogActions sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Button onClick={onClose} color="error">
+          Cancel
+        </Button>
         <Button onClick={handleSubmit} variant="contained">
           Create
         </Button>

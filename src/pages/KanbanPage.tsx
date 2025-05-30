@@ -1,5 +1,3 @@
 export default function KanbanPage() {
-  return (
-    <div>KanbanPage</div>
-  )
+  return <div>KanbanPage</div>;
 }

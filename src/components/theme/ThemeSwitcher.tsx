@@ -3,7 +3,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import SunnyIcon from '@mui/icons-material/LightMode';
 import { useColorScheme } from '@mui/material/styles';
 
-const ThemeSwitcher = () => {
+export const ThemeSwitcher = () => {
   const { mode, setMode } = useColorScheme();
 
   const isDark = mode === 'dark';
@@ -18,4 +18,3 @@ const ThemeSwitcher = () => {
   );
 };
 
-export default ThemeSwitcher;
