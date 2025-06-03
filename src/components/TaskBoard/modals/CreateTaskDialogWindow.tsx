@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, type ChangeEvent } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -10,26 +10,20 @@ import {
   Stack,
 } from "@mui/material";
 import { nanoid } from "nanoid";
-import type { TaskFormValues } from "../types/type";
+import type { CreateTask } from "../../../types/type";
+import { initialValues } from "./config/initialValues";
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  onSubmit: (data: TaskFormValues) => void;
+  onSubmit: (data: CreateTask) => void;
 }
 
-const initialValues: TaskFormValues = {
-  id: "",
-  title: "",
-  description: "",
-  status: "To Do",
-};
-
 const AddTaskModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
-  const [formData, setFormData] = React.useState<TaskFormValues>(initialValues);
+  const [formData, setFormData] = useState<CreateTask>(initialValues);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -76,6 +70,20 @@ const AddTaskModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
             onChange={handleChange}
           >
             {["To Do", "In Progress", "Done"].map((option) => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            name="priority"
+            label="Task Priority"
+            select
+            fullWidth
+            value={formData.priority}
+            onChange={handleChange}
+          >
+            {["Low", "Medium", "High", "Critical"].map((option) => (
               <MenuItem key={option} value={option}>
                 {option}
               </MenuItem>

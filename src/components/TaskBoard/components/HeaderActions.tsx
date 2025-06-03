@@ -26,7 +26,7 @@ export default function HeaderActions({ onAddTask }: Props) {
         </Button>
         <Button
           variant="contained"
-          color="primary"
+          color="custom"
           startIcon={<AddIcon />}
           onClick={onAddTask}
         >

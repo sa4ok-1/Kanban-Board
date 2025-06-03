@@ -6,6 +6,12 @@ const theme = extendTheme({
     light: {
       palette: {
         mode: "light",
+        custom: {
+          main: "#00bcd4",
+          light: "#5efcff",
+          dark: "#02c4d0",
+          contrastText: "#000000",
+        },
         primary: {
           main: "#5C7CFA",
           contrastText: "#ffffff",
@@ -43,6 +49,12 @@ const theme = extendTheme({
     dark: {
       palette: {
         mode: "dark",
+        custom: {
+          main: "#00bcd4",
+          light: "#5efcff",
+          dark: "#02c4d0",
+          contrastText: "#000000",
+        },
         primary: {
           main: "#3B82F6",
           contrastText: "#FFFFFF",
@@ -53,7 +65,7 @@ const theme = extendTheme({
         },
         background: {
           default: "#0D1117",
-          paper: "#161B22",
+          paper: "#01050a",
         },
         text: {
           primary: "#C9D1D9",
@@ -156,7 +168,7 @@ const theme = extendTheme({
           borderRadius: "16px",
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)",
           transition: "transform 0.3s ease, box-shadow 0.3s ease",
-          border: "1px solid white",
+          border: `1px solid ${theme.palette.divider}`,
           color: theme.palette.text.secondaryChannel,
 
           "&:hover": {

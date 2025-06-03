@@ -7,7 +7,7 @@ import KanbanIcon from "@mui/icons-material/ViewKanban";
 import ProfileIcon from "@mui/icons-material/Person";
 import { Outlet } from "react-router-dom";
 import AppTitle from "../components/DashBoard/AppTitle";
-import ToolbarActionsSearch from "../components/DashBoard/ToolbarSearch";
+import ToolbarActionsSearch from "../components/DashBoard/Toolbar";
 import SidebarFooter from "../components/DashBoard/Sidebar";
 import PageContent from "../components/DashBoard/PageContent";
 import theme from "components/theme/theme";

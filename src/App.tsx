@@ -1,7 +1,7 @@
-import DashboardLayoutPage from "./pages/MainPage";
-import { Routes, Route } from "react-router";
-import TasksPage from "./pages/TaskPage";
-import KanbanPage from "pages/KanbanPage";
+import DashboardLayoutPage from "./layout/DashboardPage";
+import { Route,Routes } from "react-router-dom";
+import TasksPage from "./layout/TaskPage";
+import KanbanPage from "layout/KanbanPage";
 function App() {
   return (
     <Routes>

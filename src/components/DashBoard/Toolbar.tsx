@@ -1,6 +1,5 @@
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
-import TextField from "@mui/material/TextField";
 import Tooltip from "@mui/material/Tooltip";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -10,13 +9,16 @@ import Badge from "@mui/material/Badge";
 import { ThemeSwitcher } from "components/theme/ThemeSwitcher";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { MouseEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
+import Box from "@mui/material/Box";
 
 export default function ToolbarActionsSearch() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [showSearch, setShowSearch] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const { i18n } = useTranslation();
 
   const selectedLanguage = i18n.language;
@@ -35,33 +37,29 @@ export default function ToolbarActionsSearch() {
     handleLanguageClose();
   };
 
+  const toggleSearch = () => {
+    setShowSearch(!showSearch);
+  };
+
+  useEffect(() => {
+    if (showSearch && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [showSearch]);
+
   return (
     <Stack direction="row" alignItems="center" spacing={1}>
-      <Tooltip title="Search" enterDelay={1000}>
-        <div>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Tooltip title={t("Search")} enterDelay={1000}>
           <IconButton
-            type="button"
+            onClick={toggleSearch}
             aria-label="search"
-            sx={{ display: { xs: "inline", md: "none" } }}
+            sx={{ display: { xs: "inline-flex", md: "none" } }}
           >
             <SearchIcon />
           </IconButton>
-        </div>
-      </Tooltip>
-
-      <TextField
-        label={t("Search")}
-        variant="outlined"
-        size="small"
-        InputProps={{
-          endAdornment: (
-            <IconButton type="button" aria-label="search" size="small">
-              <SearchIcon />
-            </IconButton>
-          ),
-        }}
-        sx={{ display: { xs: "none", md: "inline-block" }, mr: 1 }}
-      />
+        </Tooltip>
+      </Box>
 
       <div>
         <IconButton
