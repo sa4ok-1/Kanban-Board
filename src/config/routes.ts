@@ -3,4 +3,5 @@ export enum AppRoutes {
   TASKS = "tasks",
   KANBAN = "kanban",
   PROFILE = "profile",
+  LOGIN ="/login",
 }

@@ -11,6 +11,7 @@ import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import { useTranslation } from "react-i18next";
 import { TaskStatus } from "types/type";
 import SearchInput from "./SearchInput";
+import type { SortOption } from "types/type";
 
 interface Props {
   statusFilter: string;
@@ -20,6 +21,8 @@ interface Props {
   searchQuery: string;
   setSearchQuery: (value: string) => void;
   onSearch: (query: string) => void;
+  sortOption: SortOption;
+  setSortOption: (value: SortOption) => void;
 }
 
 export default function FilterBar({
@@ -30,8 +33,14 @@ export default function FilterBar({
   searchQuery,
   setSearchQuery,
   onSearch,
+  sortOption,
+  setSortOption,
 }: Props) {
   const { t } = useTranslation();
+
+  const handleSortChange = (value: SortOption) => {
+    setSortOption(value);
+  };
 
   return (
     <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap">
@@ -49,6 +58,17 @@ export default function FilterBar({
             {t(status)}
           </MenuItem>
         ))}
+      </Select>
+
+      <Select
+        value={sortOption}
+        onChange={(e) => handleSortChange(e.target.value as SortOption)}
+        size="small"
+        sx={{ minWidth: 200 }}
+      >
+        <MenuItem value="title">{t("By name (A-Z)")}</MenuItem>
+        <MenuItem value="completed_asc">{t("Completed first")}</MenuItem>
+        <MenuItem value="completed_desc">{t("Pending first")}</MenuItem>
       </Select>
 
       <ToggleButtonGroup

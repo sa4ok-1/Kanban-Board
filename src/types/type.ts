@@ -15,3 +15,4 @@ export interface CreateTask {
   privacy: "public" | "private" | "custom";
 }
 
+export type SortOption = "title" | "completed_asc" | "completed_desc";

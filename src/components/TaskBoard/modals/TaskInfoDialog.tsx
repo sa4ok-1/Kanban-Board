@@ -30,10 +30,8 @@ export default function TaskDialog({
 }: TaskDialogProps) {
   const navigate = useNavigate();
 
-  // Локальний стейт для редагування
   const [editedTask, setEditedTask] = useState<CreateTask>(task);
 
-  // Коли відкриваємо діалог або приходить новий task - оновлюємо локальний стейт
   useEffect(() => {
     setEditedTask(task);
   }, [task]);
