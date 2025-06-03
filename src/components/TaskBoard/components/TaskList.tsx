@@ -1,5 +1,5 @@
 import { Paper, CircularProgress, Box } from "@mui/material";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import TaskCard from "./TaskCard";
 import type { CreateTask } from "../../../types/type";
 
@@ -9,6 +9,8 @@ interface Props {
   onLoadMore?: () => void;
   hasMore?: boolean;
   loading?: boolean;
+  onEditTask?: (updatedTask: CreateTask) => void;
+  onDeleteTask?: (taskId: string) => void;
 }
 
 export default function TaskList({
@@ -17,15 +19,10 @@ export default function TaskList({
   onLoadMore,
   hasMore = true,
   loading = false,
+  onEditTask,
+  onDeleteTask,
 }: Props) {
   const loaderRef = useRef<HTMLDivElement>(null);
-  const [initialLoad, setInitialLoad] = useState(true);
-  useEffect(() => {
-    if (initialLoad && tasks.length > 0) {
-      setInitialLoad(false);
-      return;
-    }
-  }, [tasks.length, initialLoad]);
 
   useEffect(() => {
     if (!onLoadMore || loading || !hasMore) return;
@@ -69,7 +66,13 @@ export default function TaskList({
       }}
     >
       {tasks.map((task) => (
-        <TaskCard key={task.id} task={task} viewMode={viewMode} />
+        <TaskCard
+          key={task.id}
+          task={task}
+          viewMode={viewMode}
+          onEdit={onEditTask ?? (() => {})}
+          onDelete={onDeleteTask ?? (() => {})}
+        />
       ))}
 
       {hasMore && (

@@ -17,6 +17,16 @@ export default function TasksPage() {
     setTasks((prev) => [...prev, data]);
   };
 
+  const handleEditTask = (updatedTask: CreateTask) => {
+    setTasks(tasks.map(task => 
+      task.id === updatedTask.id ? updatedTask : task
+    ));
+  };
+
+  const handleDeleteTask = (taskId: string) => {
+    setTasks(tasks.filter(task => task.id !== taskId));
+  };
+
   const filteredTasks = tasks.filter((task) => {
     const matchesStatus =
       statusFilter === "All" || task.status === statusFilter;
@@ -40,7 +50,12 @@ export default function TasksPage() {
           setSearchQuery={setSearchQuery}
           onSearch={(query: string) => setSearchQuery(query)}
         />
-        <TaskList tasks={filteredTasks} viewMode={viewMode} />
+        <TaskList 
+          tasks={filteredTasks} 
+          viewMode={viewMode}
+          onEditTask={handleEditTask}
+          onDeleteTask={handleDeleteTask}
+        />
         <AddTaskModal
           open={openModal}
           onClose={() => setOpenModal(false)}
