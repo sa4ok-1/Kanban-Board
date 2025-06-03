@@ -7,12 +7,17 @@ import KanbanPage from "./layout/KanbanPage";
 import { AppRoutes } from "./config/routes";
 import ProfilePage from "layout/ProfilePage";
 import LoginPage from "./components/LoginRegister/LoginPage";
+import RegisterPage from "components/LoginRegister/RegisterPage";
 
 export default function App() {
   const element = useRoutes([
     {
       path: AppRoutes.LOGIN,
       element: <LoginPage />,
+    },
+    {
+      path: AppRoutes.REGISTER,
+      element: <RegisterPage />,
     },
     {
       path: "/",

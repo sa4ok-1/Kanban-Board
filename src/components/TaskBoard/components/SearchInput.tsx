@@ -59,7 +59,6 @@ export default function SearchInput({ searchQuery, setSearchQuery, onSearch }: P
     }
   };
 
-  // Mobile search dialog
   const MobileSearchDialog = (
     <Dialog open={mobileOpen} onClose={() => setMobileOpen(false)} fullWidth>
       <DialogTitle>{t("Search Tasks")}</DialogTitle>
@@ -98,7 +97,7 @@ export default function SearchInput({ searchQuery, setSearchQuery, onSearch }: P
     <Box
       sx={{
         width: showSearch ? 240 : 40,
-        transition: "width 0.3s ease",
+        transition: "width 0.9s ease",
         overflow: "hidden",
       }}
     >
