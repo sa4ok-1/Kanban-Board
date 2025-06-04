@@ -20,7 +20,7 @@ import type { CreateTask } from "../../types/type";
 import TaskDialog from "./modals/TaskInfoDialog";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { STATUS_CONFIG } from "./stutusConfigColor";
+import { STATUS_CONFIG } from "./types/stutusConfigColor";
 
 interface Props {
   task: CreateTask;
@@ -35,6 +35,7 @@ export default function TaskCard({ task, viewMode, onEdit, onDelete }: Props) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const menuOpen = Boolean(anchorEl);
+  
   const statusConfig = STATUS_CONFIG[task.status];
 
   const handleSettingsClick = (event: MouseEvent<HTMLElement>) => {

@@ -12,7 +12,7 @@ import { NAVIGATION_CONFIG } from "config/navigation";
 import { useMemo } from "react";
 
 export default function MainLayout() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation('sidebar');
 
   const navigation: Navigation = useMemo(
     () =>
@@ -21,7 +21,7 @@ export default function MainLayout() {
         title: t(item.translationKey),
         icon: <item.icon />,
       })),
-    [t, i18n.language]
+    [t, ]
   );
 
   return (

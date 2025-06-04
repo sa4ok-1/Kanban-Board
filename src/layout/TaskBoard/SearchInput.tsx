@@ -8,10 +8,9 @@ import {
   useMediaQuery,
   type Theme,
   Dialog,
-  DialogTitle,
   DialogContent,
   DialogActions,
-  Button
+  Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
@@ -24,18 +23,24 @@ interface Props {
   onSearch: (query: string) => void;
 }
 
-export default function SearchInput({ searchQuery, setSearchQuery, onSearch }: Props) {
-  const { t } = useTranslation();
+export default function SearchInput({
+  searchQuery,
+  setSearchQuery,
+  onSearch,
+}: Props) {
+  const { t } = useTranslation("task_board_page");
   const [showSearch, setShowSearch] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("sm")
+  );
 
   const toggleSearch = () => {
     if (isMobile) {
       setMobileOpen(true);
     } else {
-      setShowSearch(prev => !prev);
+      setShowSearch((prev) => !prev);
     }
   };
 
@@ -61,12 +66,11 @@ export default function SearchInput({ searchQuery, setSearchQuery, onSearch }: P
 
   const MobileSearchDialog = (
     <Dialog open={mobileOpen} onClose={() => setMobileOpen(false)} fullWidth>
-      <DialogTitle>{t("Search Tasks")}</DialogTitle>
       <DialogContent>
         <TextField
           fullWidth
           inputRef={searchInputRef}
-          placeholder={t("Search tasks...")}
+          placeholder={t("search_tasks...")}
           variant="outlined"
           value={searchQuery}
           onChange={handleSearchChange}
@@ -85,14 +89,11 @@ export default function SearchInput({ searchQuery, setSearchQuery, onSearch }: P
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setMobileOpen(false)}>
-          {t("Close")}
-        </Button>
+        <Button onClick={() => setMobileOpen(false)}>{t("Close")}</Button>
       </DialogActions>
     </Dialog>
   );
 
-  // Desktop search
   const DesktopSearch = (
     <Box
       sx={{
@@ -105,7 +106,7 @@ export default function SearchInput({ searchQuery, setSearchQuery, onSearch }: P
         <Slide direction="right" in={showSearch} mountOnEnter unmountOnExit>
           <TextField
             inputRef={searchInputRef}
-            placeholder={t("Search tasks...")}
+            placeholder={t("search_tasks...")}
             variant="outlined"
             size="small"
             value={searchQuery}
@@ -127,7 +128,7 @@ export default function SearchInput({ searchQuery, setSearchQuery, onSearch }: P
           />
         </Slide>
       ) : (
-        <Tooltip title={t("Search")} enterDelay={1000}>
+        <Tooltip title={t("search")} enterDelay={1000}>
           <IconButton onClick={toggleSearch} aria-label="search">
             <SearchIcon />
           </IconButton>

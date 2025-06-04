@@ -3,15 +3,14 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Typography,
-  Box,
   Button,
-  TextField,
-  MenuItem,
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import type { CreateTask } from "../../../types/type";
+import { type CreateTask } from "../../../types/type";
+import { useTranslation } from "react-i18next";
+import TaskEditFields from "./TaskEditFields";
+import TaskViewFields from "./TaskViewFields";
 
 interface TaskDialogProps {
   open: boolean;
@@ -29,6 +28,7 @@ export default function TaskDialog({
   onSave,
 }: TaskDialogProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation("task_info_dialog");
 
   const [editedTask, setEditedTask] = useState<CreateTask>(task);
 
@@ -37,7 +37,7 @@ export default function TaskDialog({
   }, [task]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setEditedTask((prev) => ({
@@ -59,115 +59,31 @@ export default function TaskDialog({
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>{editMode ? "Edit Task" : "Task Details"}</DialogTitle>
+      <DialogTitle>
+        {editMode ? t("task_dialog.edit_task") : t("task_dialog.task_details")}
+      </DialogTitle>
+
       <DialogContent dividers>
-        <Box display="flex" flexDirection="column" gap={2}>
-          {editMode ? (
-            <>
-              <TextField
-                label="Title"
-                name="title"
-                value={editedTask.title}
-                onChange={handleChange}
-                fullWidth
-              />
-              <TextField
-                label="Description"
-                name="description"
-                value={editedTask.description}
-                onChange={handleChange}
-                fullWidth
-                multiline
-                rows={3}
-              />
-              <TextField
-                select
-                label="Status"
-                name="status"
-                value={editedTask.status}
-                onChange={handleChange}
-                fullWidth
-              >
-                <MenuItem value="To Do">To Do</MenuItem>
-                <MenuItem value="In Progress">In Progress</MenuItem>
-                <MenuItem value="Done">Done</MenuItem>
-              </TextField>
-              <TextField
-                select
-                label="Priority"
-                name="priority"
-                value={editedTask.priority}
-                onChange={handleChange}
-                fullWidth
-              >
-                <MenuItem value="Low">Low</MenuItem>
-                <MenuItem value="Medium">Medium</MenuItem>
-                <MenuItem value="High">High</MenuItem>
-              </TextField>
-              <TextField
-                label="Author"
-                name="author"
-                value={editedTask.author || ""}
-                onChange={handleChange}
-                fullWidth
-              />
-              <TextField
-                label="Executor"
-                name="executor"
-                value={editedTask.executor || ""}
-                onChange={handleChange}
-                fullWidth
-              />
-              <TextField
-                select
-                label="Privacy"
-                name="privacy"
-                value={editedTask.privacy}
-                onChange={handleChange}
-                fullWidth
-              >
-                <MenuItem value="Public">Public</MenuItem>
-                <MenuItem value="Private">Private</MenuItem>
-              </TextField>
-            </>
-          ) : (
-            <>
-              <Typography>
-                <strong>Title:</strong> {task.title}
-              </Typography>
-              <Typography>
-                <strong>Description:</strong> {task.description}
-              </Typography>
-              <Typography>
-                <strong>Status:</strong> {task.status}
-              </Typography>
-              <Typography>
-                <strong>Priority:</strong> {task.priority}
-              </Typography>
-              <Typography>
-                <strong>Author:</strong> {task.author || "Unknown"}
-              </Typography>
-              <Typography>
-                <strong>Executor:</strong> {task.executor || "Unassigned"}
-              </Typography>
-              <Typography>
-                <strong>Privacy:</strong> {task.privacy}
-              </Typography>
-            </>
-          )}
-        </Box>
+        {editMode ? (
+          <TaskEditFields task={editedTask} onChange={handleChange} />
+        ) : (
+          <TaskViewFields task={task} />
+        )}
       </DialogContent>
+
       <DialogActions sx={{ justifyContent: "space-between" }}>
         <Button color="error" onClick={onClose}>
-          {editMode ? "Cancel" : "Close"}
+          {editMode
+            ? t("task_dialog.buttons.cancel")
+            : t("task_dialog.buttons.close")}
         </Button>
         {editMode ? (
           <Button onClick={handleSaveClick} variant="contained" color="primary">
-            Save
+            {t("task_dialog.buttons.save")}
           </Button>
         ) : (
           <Button onClick={handleCompleted} color="custom">
-            Complete
+            {t("task_dialog.buttons.complete")}
           </Button>
         )}
       </DialogActions>

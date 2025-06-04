@@ -1,0 +1,10 @@
+{
+  "search": "Search",
+  "tasks_board": "Task Board",
+
+  "all": "All",
+  "to_do": "To Do",
+  "in_progress": "In Progress",
+  "pending": "Pending",
+  "done": "Done"
+}

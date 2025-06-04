@@ -32,11 +32,11 @@ export const initialValues: CreateTask = {
   id: "",
   title: "",
   description: "",
-  status: TaskStatus.TODO,  // Fixed: Using enum value instead of enum itself
-  priority: TaskPriority.MEDIUM,  // Fixed: Using enum value instead of enum itself
+  status: TaskStatus.TODO,
+  priority: TaskPriority.MEDIUM,
   author: "",
   executor: "",
-  privacy: TaskPrivacy.PUBLIC,  // Fixed: Using enum value instead of string literal
+  privacy: TaskPrivacy.PUBLIC,
 };
 
-export type SortOption = "title" | "completed_asc" | "completed_desc";
+export type SortOption = "byName" | "completedFirst" | "pendingFirst";

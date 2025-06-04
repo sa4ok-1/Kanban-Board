@@ -9,23 +9,20 @@ import {
   Box,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
-import { darkTheme } from "../components/LoginRegister/LoginTheme";
+import { darkTheme } from "../layout/LoginRegister/LoginTheme";
 import { AppRoutes } from "../config/routes";
-
-const loginSchema = z.object({
-  email: z.string().email("Invalid email format"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
-
-type LoginFormData = z.infer<typeof loginSchema>;
+import {
+  loginSchema,
+  type LoginFormData,
+} from "../layout/LoginRegister/schema/validationSchemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
+
   const {
     register,
     handleSubmit,
@@ -40,6 +37,7 @@ export default function LoginPage() {
     const from = location.state?.from?.pathname || AppRoutes.DASHBOARD;
     return <Navigate to={from} replace />;
   }
+
   const onSubmit = async () => {
     try {
       navigate("/", { replace: true });

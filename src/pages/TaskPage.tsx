@@ -13,7 +13,7 @@ export default function TasksPage() {
   const [statusFilter, setStatusFilter] = useState("All");
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [sortOption, setSortOption] = useState<SortOption>("title");
+  const [sortOption, setSortOption] = useState<SortOption>("byName");
 
   const handleSubmit = useCallback((data: CreateTask) => {
     setTasks((prev) => [...prev, data]);
@@ -48,11 +48,11 @@ export default function TasksPage() {
     (tasks: CreateTask[], option: SortOption): CreateTask[] => {
       const tasksCopy = [...tasks];
       switch (option) {
-        case "title":
+        case "byName":
           return tasksCopy.sort((a, b) => a.title.localeCompare(b.title));
-        case "completed_asc":
+        case "completedFirst":
           return tasksCopy.sort((a) => (a.status === "Done" ? -1 : 1));
-        case "completed_desc":
+        case "pendingFirst":
           return tasksCopy.sort((a) => (a.status === "Done" ? 1 : -1));
         default:
           return tasksCopy;

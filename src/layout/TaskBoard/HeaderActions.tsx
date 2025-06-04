@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function HeaderActions({ onAddTask }: Props) {
-  const { t } = useTranslation();
+  const { t } = useTranslation("task_board_page");
   return (
     <Stack
       direction="row"
@@ -22,7 +22,7 @@ export default function HeaderActions({ onAddTask }: Props) {
       </Typography>
       <Stack direction="row" spacing={2}>
         <Button variant="outlined" startIcon={<DownloadIcon />}>
-          {t("Export")}
+          {t("export")}
         </Button>
         <Button
           variant="contained"
@@ -30,7 +30,7 @@ export default function HeaderActions({ onAddTask }: Props) {
           startIcon={<AddIcon />}
           onClick={onAddTask}
         >
-          {t("Add Task")}
+          {t("add_task")}
         </Button>
       </Stack>
     </Stack>

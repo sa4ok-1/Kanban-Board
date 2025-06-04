@@ -1,4 +1,4 @@
-import React, { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent, type FC } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -10,8 +10,7 @@ import {
   Stack,
 } from "@mui/material";
 import { nanoid } from "nanoid";
-import type { CreateTask } from "../../../types/type";
-import { initialValues } from "./../../../types/type";
+import { type CreateTask, initialValues,TaskStatus,TaskPriority } from "../../../types/type";
 
 interface Props {
   open: boolean;
@@ -19,7 +18,7 @@ interface Props {
   onSubmit: (data: CreateTask) => void;
 }
 
-const AddTaskModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
+const AddTaskModal: FC<Props> = ({ open, onClose, onSubmit }) => {
   const [formData, setFormData] = useState<CreateTask>(initialValues);
 
   const handleChange = (
@@ -69,7 +68,7 @@ const AddTaskModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
             value={formData.status}
             onChange={handleChange}
           >
-            {["To Do", "In Progress", "Done"].map((option) => (
+            {Object.values(TaskStatus).map((option) => (
               <MenuItem key={option} value={option}>
                 {option}
               </MenuItem>
@@ -83,7 +82,7 @@ const AddTaskModal: React.FC<Props> = ({ open, onClose, onSubmit }) => {
             value={formData.priority}
             onChange={handleChange}
           >
-            {["Low", "Medium", "High", "Critical"].map((option) => (
+            {Object.values(TaskPriority).map((option) => (
               <MenuItem key={option} value={option}>
                 {option}
               </MenuItem>

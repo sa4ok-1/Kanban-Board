@@ -5,13 +5,15 @@ import {
   MenuItem,
   ToggleButton,
   ToggleButtonGroup,
+  type SelectChangeEvent,
 } from "@mui/material";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import ViewModuleIcon from "@mui/icons-material/ViewModule";
 import { useTranslation } from "react-i18next";
 import { TaskStatus } from "types/type";
 import SearchInput from "./SearchInput";
-import type { SortOption } from "types/type";
+import { type SortOption } from "types/type";
 
 interface Props {
   statusFilter: string;
@@ -36,15 +38,27 @@ export default function FilterBar({
   sortOption,
   setSortOption,
 }: Props) {
-  const { t } = useTranslation();
+  const { t } = useTranslation("task_board_page");
 
-  const handleSortChange = (value: SortOption) => {
-    setSortOption(value);
+  const handleSortChange = (e: SelectChangeEvent<SortOption>) => {
+    setSortOption(e.target.value as SortOption);
+  };
+
+  const SORT_OPTIONS: Record<SortOption, SortOption> = {
+    byName: "byName",
+    completedFirst: "completedFirst",
+    pendingFirst: "pendingFirst",
   };
 
   return (
     <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap">
-      <Typography variant="h6">{t("Filter")}:</Typography>
+      <Typography
+        variant="h6"
+        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+      >
+        <FilterListIcon fontSize="small" />
+        {t("filter")}:
+      </Typography>
 
       <Select
         value={statusFilter}
@@ -52,23 +66,25 @@ export default function FilterBar({
         size="small"
         sx={{ minWidth: 120 }}
       >
-        <MenuItem value="All">{t("All")}</MenuItem>
+        <MenuItem value="All">{t("all")}</MenuItem>
         {Object.values(TaskStatus).map((status) => (
           <MenuItem key={status} value={status}>
-            {t(status)}
+            {t(`status.${status}`)}
           </MenuItem>
         ))}
       </Select>
 
       <Select
         value={sortOption}
-        onChange={(e) => handleSortChange(e.target.value as SortOption)}
+        onChange={handleSortChange}
         size="small"
         sx={{ minWidth: 200 }}
       >
-        <MenuItem value="title">{t("By name (A-Z)")}</MenuItem>
-        <MenuItem value="completedAsc">{t("Completed first")}</MenuItem>
-        <MenuItem value="completedDesc">{t("Pending first")}</MenuItem>
+        {Object.values(SORT_OPTIONS).map((option) => (
+          <MenuItem key={option} value={option}>
+            {t(`sortOptions.${option}`)}
+          </MenuItem>
+        ))}
       </Select>
 
       <ToggleButtonGroup
