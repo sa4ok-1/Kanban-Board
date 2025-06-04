@@ -2,7 +2,7 @@ import { Stack, Typography, Button } from "@mui/material";
 import DownloadIcon from "@mui/icons-material/Download";
 import AddIcon from "@mui/icons-material/Add";
 import { useTranslation } from "react-i18next";
-import { gradientText } from "components/theme/utils/typographyStyles";
+import { gradientText } from "infrastructure/theme/types/typographyStyles";
 
 interface Props {
   onAddTask: () => void;

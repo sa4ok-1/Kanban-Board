@@ -2,22 +2,27 @@ import { AppProvider, type Navigation } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Outlet } from "react-router-dom";
-import AppTitle from "../components/DashBoard/AppTitle";
-import ToolbarActionsSearch from "../components/DashBoard/Toolbar";
-import SidebarFooter from "../components/DashBoard/Sidebar";
-import PageContent from "../components/DashBoard/PageContent";
-import theme from "components/theme/theme";
+import AppTitle from "../layout/DashBoard/AppTitle";
+import ToolbarActionsSearch from "../layout/DashBoard/Toolbar";
+import SidebarFooter from "../layout/DashBoard/Sidebar";
+import PageContent from "../layout/DashBoard/PageContent";
+import theme from "infrastructure/theme/theme";
 import { useTranslation } from "react-i18next";
 import { NAVIGATION_CONFIG } from "config/navigation";
+import { useMemo } from "react";
 
 export default function MainLayout() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  const navigation: Navigation = NAVIGATION_CONFIG.map((item) => ({
-    segment: item.segment,
-    title: t(item.translationKey),
-    icon: <item.icon />,
-  }));
+  const navigation: Navigation = useMemo(
+    () =>
+      NAVIGATION_CONFIG.map((item) => ({
+        segment: item.segment,
+        title: t(item.translationKey),
+        icon: <item.icon />,
+      })),
+    [t, i18n.language]
+  );
 
   return (
     <AppProvider navigation={navigation} theme={theme}>

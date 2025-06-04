@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ThemeProvider } from "@mui/material/styles";
-import { darkTheme } from "./LoginTheme";
+import { darkTheme } from "../components/LoginRegister/LoginTheme";
 import { useNavigate } from "react-router-dom";
 
 const registerSchema = z

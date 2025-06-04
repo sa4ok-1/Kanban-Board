@@ -12,6 +12,11 @@ const theme = extendTheme({
           dark: "#02c4d0",
           contrastText: "#000000",
         },
+        status: {
+          todo: "#2196F3",
+          inProgress: "#FFC107",
+          done: "#4CAF50",
+        },
         primary: {
           main: "#5C7CFA",
           contrastText: "#ffffff",
@@ -54,6 +59,11 @@ const theme = extendTheme({
           light: "#5efcff",
           dark: "#02c4d0",
           contrastText: "#000000",
+        },
+        status: {
+          todo: "#64B5F6", // світліший синій для темної теми
+          inProgress: "#FFD54F", // світліший жовтий
+          done: "#81C784", // світліший зелений
         },
         primary: {
           main: "#3B82F6",

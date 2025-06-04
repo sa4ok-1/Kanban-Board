@@ -16,8 +16,25 @@ declare module "@mui/material/Button" {
   }
 }
 
-declare module '@mui/material/SvgIcon' {
+declare module "@mui/material/SvgIcon" {
   interface SvgIconPropsColorOverrides {
     custom: true;
+  }
+}
+
+declare module "@mui/material/styles" {
+  interface Palette {
+    status: {
+      todo: string;
+      inProgress: string;
+      done: string;
+    };
+  }
+  interface PaletteOptions {
+    status?: {
+      todo?: string;
+      inProgress?: string;
+      done?: string;
+    };
   }
 }

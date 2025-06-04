@@ -6,7 +6,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import LanguageIcon from "@mui/icons-material/Language";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
-import { ThemeSwitcher } from "components/theme/ThemeSwitcher";
+import { ThemeSwitcher } from "infrastructure/theme/ThemeSwitcher";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState, useRef, useEffect } from "react";

@@ -1,7 +1,7 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import CloudCircleIcon from "@mui/icons-material/CloudCircle";
-import { gradientText } from "components/theme/utils/typographyStyles";
+import { gradientText } from "infrastructure/theme/types/typographyStyles";
 
 export default function AppTitle() {
   return (

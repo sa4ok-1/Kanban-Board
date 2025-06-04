@@ -1,13 +1,13 @@
 import { useRoutes } from "react-router-dom";
 import ProtectedRoute from "./config/ProtectedRoute";
-import MainLayout from "./layout/MainLayout";
-import Dashboard from "./layout/DashBoard";
-import TasksPage from "./layout/TaskPage";
-import KanbanPage from "./layout/KanbanPage";
+import MainLayout from "./pages/MainLayout";
+import Dashboard from "./pages/DashBoard";
+import TasksPage from "./pages/TaskPage";
+import KanbanPage from "./pages/KanbanPage";
 import { AppRoutes } from "./config/routes";
-import ProfilePage from "layout/ProfilePage";
-import LoginPage from "./components/LoginRegister/LoginPage";
-import RegisterPage from "components/LoginRegister/RegisterPage";
+import ProfilePage from "pages/ProfilePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "pages/RegisterPage";
 
 export default function App() {
   const element = useRoutes([

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { nanoid } from "nanoid";
 import type { CreateTask } from "../../../types/type";
-import { initialValues } from "./config/initialValues";
+import { initialValues } from "./../../../types/type";
 
 interface Props {
   open: boolean;

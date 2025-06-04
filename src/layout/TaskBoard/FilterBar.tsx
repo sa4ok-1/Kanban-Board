@@ -67,8 +67,8 @@ export default function FilterBar({
         sx={{ minWidth: 200 }}
       >
         <MenuItem value="title">{t("By name (A-Z)")}</MenuItem>
-        <MenuItem value="completed_asc">{t("Completed first")}</MenuItem>
-        <MenuItem value="completed_desc">{t("Pending first")}</MenuItem>
+        <MenuItem value="completedAsc">{t("Completed first")}</MenuItem>
+        <MenuItem value="completedDesc">{t("Pending first")}</MenuItem>
       </Select>
 
       <ToggleButtonGroup

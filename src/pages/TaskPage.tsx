@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { Box, Stack } from "@mui/material";
 import type { CreateTask } from "../types/type";
-import AddTaskModal from "../components/TaskBoard/modals/CreateTaskDialogWindow";
-import HeaderActions from "../components/TaskBoard/components/HeaderActions";
-import FilterBar from "../components/TaskBoard/components/FilterBar";
-import TaskList from "../components/TaskBoard/components/TaskList";
+import AddTaskModal from "../layout/TaskBoard/modals/CreateTaskDialogWindow";
+import HeaderActions from "../layout/TaskBoard/HeaderActions";
+import FilterBar from "../layout/TaskBoard/FilterBar";
+import TaskList from "../layout/TaskBoard/TaskList";
 import type { SortOption } from "../types/type";
 
 export default function TasksPage() {
@@ -13,61 +13,67 @@ export default function TasksPage() {
   const [statusFilter, setStatusFilter] = useState("All");
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [sortOption, setSortOption] = useState<SortOption>("completed_asc");
+  const [sortOption, setSortOption] = useState<SortOption>("title");
 
-  const handleSubmit = (data: CreateTask) => {
+  const handleSubmit = useCallback((data: CreateTask) => {
     setTasks((prev) => [...prev, data]);
-  };
+  }, []);
 
-  const handleEditTask = (updatedTask: CreateTask) => {
-    setTasks(
-      tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+  const handleEditTask = useCallback((updatedTask: CreateTask) => {
+    setTasks((prev) =>
+      prev.map((task) => (task.id === updatedTask.id ? updatedTask : task))
     );
-  };
+  }, []);
 
-  const handleDeleteTask = (taskId: string) => {
-    setTasks(tasks.filter((task) => task.id !== taskId));
-  };
+  const handleDeleteTask = useCallback((taskId: string) => {
+    setTasks((prev) => prev.filter((task) => task.id !== taskId));
+  }, []);
 
-  const filterTasks = (tasks: CreateTask[], filter: string) => {
+  const filterTasks = useCallback((tasks: CreateTask[], filter: string) => {
     return filter === "All"
       ? tasks
       : tasks.filter((task) => task.status === filter);
-  };
+  }, []);
 
-  const searchTasks = (tasks: CreateTask[], query: string) => {
+  const searchTasks = useCallback((tasks: CreateTask[], query: string) => {
     if (!query) return tasks;
     return tasks.filter(
       (task) =>
         task.title.toLowerCase().includes(query.toLowerCase()) ||
         task.description?.toLowerCase().includes(query.toLowerCase())
     );
-  };
+  }, []);
 
-  const sortTasks = (tasks: CreateTask[], option: SortOption): CreateTask[] => {
-    const tasksCopy = [...tasks];
-    switch (option) {
-      case "title":
-        return tasksCopy.sort((a, b) => a.title.localeCompare(b.title));
-      case "completed_asc":
-        return tasksCopy.sort((a) => (a.status === "Done" ? -1 : 1));
-      case "completed_desc":
-        return tasksCopy.sort((a) => (a.status === "Done" ? 1 : -1));
-      default:
-        return tasksCopy;
-    }
-  };
+  const sortTasks = useCallback(
+    (tasks: CreateTask[], option: SortOption): CreateTask[] => {
+      const tasksCopy = [...tasks];
+      switch (option) {
+        case "title":
+          return tasksCopy.sort((a, b) => a.title.localeCompare(b.title));
+        case "completed_asc":
+          return tasksCopy.sort((a) => (a.status === "Done" ? -1 : 1));
+        case "completed_desc":
+          return tasksCopy.sort((a) => (a.status === "Done" ? 1 : -1));
+        default:
+          return tasksCopy;
+      }
+    },
+    []
+  );
 
-  const [filteredAndSortedTasks, setFilteredAndSortedTasks] = useState<
-    CreateTask[]
-  >([]);
-
-  useEffect(() => {
+  const filteredAndSortedTasks = useMemo(() => {
     const filtered = filterTasks(tasks, statusFilter);
     const searched = searchTasks(filtered, searchQuery);
-    const sorted = sortTasks(searched, sortOption);
-    setFilteredAndSortedTasks(sorted);
-  }, [tasks, statusFilter, searchQuery, sortOption]);
+    return sortTasks(searched, sortOption);
+  }, [
+    tasks,
+    statusFilter,
+    searchQuery,
+    sortOption,
+    filterTasks,
+    searchTasks,
+    sortTasks,
+  ]);
 
   return (
     <Box sx={{ width: "100%", p: 1, boxSizing: "border-box" }}>
@@ -80,8 +86,8 @@ export default function TasksPage() {
           setViewMode={setViewMode}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          onSearch={(query) => setSearchQuery(query)}
           sortOption={sortOption}
+          onSearch={setSearchQuery}
           setSortOption={setSortOption}
         />
         <TaskList

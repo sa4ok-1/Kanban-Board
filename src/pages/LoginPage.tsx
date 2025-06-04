@@ -11,9 +11,10 @@ import {
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
-import { darkTheme } from "./LoginTheme";
+import { darkTheme } from "../components/LoginRegister/LoginTheme";
+import { AppRoutes } from "../config/routes";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email format"),
@@ -24,22 +25,32 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log(data);
+  const isAuthenticated = false;
+
+  if (isAuthenticated) {
+    const from = location.state?.from?.pathname || AppRoutes.DASHBOARD;
+    return <Navigate to={from} replace />;
+  }
+  const onSubmit = async () => {
+    try {
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-
       <Box
         sx={{
           minHeight: "100vh",
@@ -63,6 +74,7 @@ export default function LoginPage() {
                   {...register("email")}
                   error={!!errors.email}
                   helperText={errors.email?.message}
+                  disabled={isSubmitting}
                 />
                 <TextField
                   label="Password"
@@ -71,27 +83,34 @@ export default function LoginPage() {
                   {...register("password")}
                   error={!!errors.password}
                   helperText={errors.password?.message}
+                  disabled={isSubmitting}
                 />
                 <Button
                   type="submit"
                   variant="contained"
                   fullWidth
                   sx={{ py: 1.5 }}
+                  disabled={isSubmitting}
                 >
-                  Sign In
+                  {isSubmitting ? "Signing In..." : "Sign In"}
                 </Button>
                 <Typography
                   align="center"
                   variant="body2"
                   color="text.secondary"
                 >
-                  Don’t have an account?
+                  Don't have an account?
                 </Typography>
                 <Button
                   type="button"
                   variant="outlined"
                   fullWidth
-                  onClick={() => navigate("/register")}
+                  onClick={() =>
+                    navigate(AppRoutes.REGISTER, {
+                      state: { from: location.state?.from },
+                    })
+                  }
+                  disabled={isSubmitting}
                 >
                   Create Account
                 </Button>
