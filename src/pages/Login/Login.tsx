@@ -1,20 +1,13 @@
-import {
-  TextField,
-  Button,
-  Stack,
-  Typography,
-  Container,
-  Paper,
-  CssBaseline,
-  Box,
-} from '@mui/material';
-import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { darkTheme } from './config/LoginTheme';
 import { AppRoutes } from '../../routes/config';
-import { loginSchema, type LoginFormData } from './schema/validationSchemas';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { type LoginFormData } from './types/type';
+import { loginSchema } from './schema/LoginSchemas';
+import { LoginForm } from '../Login/components';
+import { Container, CssBaseline, Box } from '@mui/material';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -43,6 +36,12 @@ export default function Login() {
     }
   };
 
+  const handleNavigateToRegister = () => {
+    navigate(AppRoutes.REGISTER, {
+      state: { from: location.state?.from },
+    });
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -57,61 +56,13 @@ export default function Login() {
         }}
       >
         <Container maxWidth='sm'>
-          <Paper elevation={6} sx={{ p: 4 }}>
-            <Typography variant='h4' align='center' gutterBottom>
-              Login to Your Account
-            </Typography>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Stack spacing={2}>
-                <TextField
-                  label='Email'
-                  fullWidth
-                  {...register('email')}
-                  error={!!errors.email}
-                  helperText={errors.email?.message}
-                  disabled={isSubmitting}
-                />
-                <TextField
-                  label='Password'
-                  type='password'
-                  fullWidth
-                  {...register('password')}
-                  error={!!errors.password}
-                  helperText={errors.password?.message}
-                  disabled={isSubmitting}
-                />
-                <Button
-                  type='submit'
-                  variant='contained'
-                  fullWidth
-                  sx={{ py: 1.5 }}
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? 'Signing In...' : 'Sign In'}
-                </Button>
-                <Typography
-                  align='center'
-                  variant='body2'
-                  color='text.secondary'
-                >
-                  Don't have an account?
-                </Typography>
-                <Button
-                  type='button'
-                  variant='outlined'
-                  fullWidth
-                  onClick={() =>
-                    navigate(AppRoutes.REGISTER, {
-                      state: { from: location.state?.from },
-                    })
-                  }
-                  disabled={isSubmitting}
-                >
-                  Create Account
-                </Button>
-              </Stack>
-            </form>
-          </Paper>
+          <LoginForm
+            isSubmitting={isSubmitting}
+            onSubmit={handleSubmit(onSubmit)}
+            onNavigateToRegister={handleNavigateToRegister}
+            errors={errors}
+            register={register}
+          />
         </Container>
       </Box>
     </ThemeProvider>

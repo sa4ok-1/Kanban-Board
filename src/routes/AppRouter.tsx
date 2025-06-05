@@ -1,32 +1,38 @@
 import { useRoutes } from 'react-router-dom';
-import ProtectedRoute from './ProtectedRoute';
-import MainLayout from '../components/MainLoyout/MainLayout';
-import Dashboard from '../pages/Dashboard/DashBoard';
-import TasksPage from '../pages/TasksPage/TaskPage';
-import KanbanPage from '../pages/Kanban/KanbanPage';
+import ProtectedRoute from './utils/ProtectedRoute';
+import { MainLayout } from 'components/MainLoyout';
+import { DashBoard } from 'pages/Dashboard';
+import { TasksPage } from 'pages/TasksPage';
+import { KanbanPage } from 'pages/Kanban';
 import { AppRoutes } from './config';
-import ProfilePage from '../pages/Profile/ProfilePage';
-import LoginPage from '../pages/Login/Login';
-import RegisterPage from 'pages/Register/RegisterPage';
+import { ProfilePage } from 'pages/Profile';
+import { Login } from 'pages/Login';
+import { RegisterPage } from 'pages/Register';
+import { NotFoundPage } from 'pages/Page404';
 
-export const appRouter = [
+export const routes = [
   {
     path: AppRoutes.LOGIN,
-    element: <LoginPage />,
+    element: <Login />,
   },
   {
     path: AppRoutes.REGISTER,
     element: <RegisterPage />,
   },
   {
+    path: '*',
+    element: <NotFoundPage />,
+  },
+  {
     path: '/',
     element: <MainLayout />,
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: AppRoutes.DASHBOARD,
         element: (
           <ProtectedRoute>
-            <Dashboard />
+            <DashBoard />
           </ProtectedRoute>
         ),
       },
@@ -59,7 +65,7 @@ export const appRouter = [
 ];
 
 const AppRouter = () => {
-  const element = useRoutes(appRouter);
+  const element = useRoutes(routes);
   return element;
 };
 

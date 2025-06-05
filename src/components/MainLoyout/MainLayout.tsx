@@ -2,13 +2,13 @@ import { AppProvider, type Navigation } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Outlet } from 'react-router-dom';
-import AppTitle from '../Header/AppTitle';
-import ToolbarActionsSearch from './Toolbar';
-import SidebarFooter from './Sidebar';
-import PageContent from './PageContent';
+import AppTitle from '../Header/components/AppTitle/AppTitle';
+import ToolbarActionsSearch from './components/Toolbar';
+import SidebarFooter from './components/SidebarFooter';
+import PageContent from './components/PageContent';
 import theme from 'infrastructure/theme/theme';
 import { useTranslation } from 'react-i18next';
-import { NAVIGATION_CONFIG } from 'components/MainLoyout/config';
+import { NAVIGATION_CONFIG } from 'components/MainLoyout/components/config';
 import { useMemo } from 'react';
 
 export default function MainLayout() {

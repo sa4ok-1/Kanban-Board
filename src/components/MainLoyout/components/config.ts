@@ -3,7 +3,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 import PersonIcon from '@mui/icons-material/Person';
-import { AppRoutes } from '../../routes/config';
+import { AppRoutes } from '../../../routes/config';
 
 export type NavigationConfigItem = {
   segment: AppRoutes;

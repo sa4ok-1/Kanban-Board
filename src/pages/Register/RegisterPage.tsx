@@ -1,47 +1,31 @@
+import { useState } from 'react';
+import { StepOneForm } from './components/StepOneForm';
+import { StepTwoForm } from './components/StepTwoForm';
+import type { StepOneData } from './schemas/registrationStepOneSchema';
+import type { StepTwoData } from './schemas/registrationStepTwoSchema';
 import {
-  TextField,
-  Button,
-  Typography,
-  Paper,
-  Stack,
-  Container,
+  ThemeProvider,
   CssBaseline,
+  Container,
+  Paper,
   Box,
 } from '@mui/material';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ThemeProvider } from '@mui/material/styles';
-import { darkTheme } from '../Login/config/LoginTheme';
-import { useNavigate } from 'react-router-dom';
-
-const registerSchema = z
-  .object({
-    email: z.string().email('Invalid email format'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
-    confirmPassword: z
-      .string()
-      .min(6, 'Password must be at least 6 characters'),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  });
-
-type RegisterFormData = z.infer<typeof registerSchema>;
+import { darkTheme } from './config/LoginTheme';
 
 export default function RegisterPage() {
-  const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterFormData>({
-    resolver: zodResolver(registerSchema),
-  });
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState<Partial<StepOneData & StepTwoData>>(
+    {},
+  );
 
-  const onSubmit = (data: RegisterFormData) => {
-    console.log(data);
+  const handleStepOneSubmit = (data: StepOneData) => {
+    setFormData((prev) => ({ ...prev, ...data }));
+    setStep(2);
+  };
+
+  const handleStepTwoSubmit = (data: StepTwoData) => {
+    const fullData = { ...formData, ...data };
+    console.log('Final Registration Data:', fullData);
   };
 
   return (
@@ -59,59 +43,13 @@ export default function RegisterPage() {
       >
         <Container maxWidth='sm'>
           <Paper elevation={6} sx={{ p: 4 }}>
-            <Typography variant='h4' align='center' gutterBottom>
-              Create an Account
-            </Typography>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Stack spacing={2}>
-                <TextField
-                  label='Email'
-                  fullWidth
-                  {...register('email')}
-                  error={!!errors.email}
-                  helperText={errors.email?.message}
-                />
-                <TextField
-                  label='Password'
-                  type='password'
-                  fullWidth
-                  {...register('password')}
-                  error={!!errors.password}
-                  helperText={errors.password?.message}
-                />
-                <TextField
-                  label='Confirm Password'
-                  type='password'
-                  fullWidth
-                  {...register('confirmPassword')}
-                  error={!!errors.confirmPassword}
-                  helperText={errors.confirmPassword?.message}
-                />
-                <Button
-                  type='submit'
-                  variant='contained'
-                  fullWidth
-                  sx={{ py: 1.5 }}
-                >
-                  Register
-                </Button>
-                <Typography
-                  align='center'
-                  variant='body2'
-                  color='text.secondary'
-                >
-                  Have an account?
-                </Typography>
-                <Button
-                  type='button'
-                  variant='outlined'
-                  fullWidth
-                  onClick={() => navigate('/login')}
-                >
-                  Sign In
-                </Button>
-              </Stack>
-            </form>
+            {step === 1 && <StepOneForm onSubmit={handleStepOneSubmit} />}
+            {step === 2 && (
+              <StepTwoForm
+                onSubmit={handleStepTwoSubmit}
+                onBack={() => setStep(1)}
+              />
+            )}
           </Paper>
         </Container>
       </Box>

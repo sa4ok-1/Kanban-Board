@@ -1,6 +1,6 @@
-import type { JSX } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import { AppRoutes } from "./config";
+import type { JSX } from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { AppRoutes } from '../config';
 
 export default function ProtectedRoute({
   children,

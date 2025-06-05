@@ -81,7 +81,7 @@ export default function TaskCard({ task, viewMode, onEdit, onDelete }: Props) {
     <>
       <Card
         sx={{
-          textAlign: 'center',
+          textAlign: 'left',
           width: '100%',
           height: viewMode === 'list' ? 'auto' : '100%',
           minHeight: '150px',
@@ -123,12 +123,6 @@ export default function TaskCard({ task, viewMode, onEdit, onDelete }: Props) {
             sx={{ fontSize: '18px', color: 'text.secondary' }}
           >
             Status: {task.status}
-          </Typography>
-          <Typography
-            variant='body2'
-            sx={{ fontSize: '18px', color: 'text.secondary' }}
-          >
-            Priority: {task.priority}
           </Typography>
         </CardContent>
       </Card>

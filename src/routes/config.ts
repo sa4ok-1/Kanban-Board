@@ -1,5 +1,5 @@
 export enum AppRoutes {
-  DASHBOARD = ' dashboard',
+  DASHBOARD = 'dashboard',
   TASKS = 'tasks',
   KANBAN = 'kanban',
   PROFILE = 'profile',

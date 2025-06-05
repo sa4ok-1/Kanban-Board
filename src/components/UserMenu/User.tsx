@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../routes/config';
 
-const UserAvatar = () => {
+export default function User() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
@@ -62,6 +62,4 @@ const UserAvatar = () => {
       </Menu>
     </>
   );
-};
-
-export default UserAvatar;
+}
