@@ -1,20 +1,20 @@
 export enum TaskStatus {
-  TODO = "To Do",
-  IN_PROGRESS = "In Progress",
-  DONE = "Done",
+  TODO = 'To Do',
+  IN_PROGRESS = 'In Progress',
+  DONE = 'Done',
 }
 
 export enum TaskPriority {
-  LOW = "Low",
-  MEDIUM = "Medium",
-  HIGH = "High",
-  CRITICAL = "Critical"
+  LOW = 'Low',
+  MEDIUM = 'Medium',
+  HIGH = 'High',
+  CRITICAL = 'Critical',
 }
 
 export enum TaskPrivacy {
-  PUBLIC = "public",
-  PRIVATE = "private",
-  CUSTOM = "custom",
+  PUBLIC = 'public',
+  PRIVATE = 'private',
+  CUSTOM = 'custom',
 }
 
 export interface CreateTask {
@@ -28,15 +28,4 @@ export interface CreateTask {
   privacy: TaskPrivacy;
 }
 
-export const initialValues: CreateTask = {
-  id: "",
-  title: "",
-  description: "",
-  status: TaskStatus.TODO,
-  priority: TaskPriority.MEDIUM,
-  author: "",
-  executor: "",
-  privacy: TaskPrivacy.PUBLIC,
-};
-
-export type SortOption = "byName" | "completedFirst" | "pendingFirst";
+export type SortOption = 'byName' | 'completedFirst' | 'pendingFirst';
