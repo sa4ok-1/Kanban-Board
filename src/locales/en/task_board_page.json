@@ -14,5 +14,20 @@
   },
   "export": "Export",
   "add_task": "Add Task",
-  "filter": "Filter"
+  "filter": "Filter",
+  "AddTaskModal": {
+    "title": "Add New Task",
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "status": "Task Status",
+      "priority": "Task Priority"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "create": "Create"
+    }
+  }
 }
+
+

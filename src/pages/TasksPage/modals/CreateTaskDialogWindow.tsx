@@ -10,12 +10,9 @@ import {
   Stack,
 } from '@mui/material';
 import { nanoid } from 'nanoid';
-import {
-  type CreateTask,
-  TaskStatus,
-  TaskPriority,
-} from '../../../types/type';
+import { type CreateTask, TaskStatus, TaskPriority } from '../../../types/type';
 import { initialValues } from '../types/initialValues';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   open: boolean;
@@ -24,6 +21,7 @@ interface Props {
 }
 
 const AddTaskModal: FC<Props> = ({ open, onClose, onSubmit }) => {
+  const { t } = useTranslation('task_board_page');
   const [formData, setFormData] = useState<CreateTask>(initialValues);
 
   const handleChange = (
@@ -43,12 +41,12 @@ const AddTaskModal: FC<Props> = ({ open, onClose, onSubmit }) => {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth='sm' fullWidth>
-      <DialogTitle>Add New Task</DialogTitle>
+      <DialogTitle>{t('AddTaskModal.title')}</DialogTitle>
       <DialogContent>
         <Stack spacing={2} mt={1}>
           <TextField
             name='title'
-            label='Title'
+            label={t('AddTaskModal.fields.title')}
             fullWidth
             multiline
             rows={3}
@@ -57,7 +55,7 @@ const AddTaskModal: FC<Props> = ({ open, onClose, onSubmit }) => {
           />
           <TextField
             name='description'
-            label='Description'
+            label={t('AddTaskModal.fields.description')}
             fullWidth
             multiline
             rows={3}
@@ -67,7 +65,7 @@ const AddTaskModal: FC<Props> = ({ open, onClose, onSubmit }) => {
 
           <TextField
             name='status'
-            label='Task Status'
+            label={t('AddTaskModal.fields.status')}
             select
             fullWidth
             value={formData.status}
@@ -81,7 +79,7 @@ const AddTaskModal: FC<Props> = ({ open, onClose, onSubmit }) => {
           </TextField>
           <TextField
             name='priority'
-            label='Task Priority'
+            label={t('AddTaskModal.fields.priority')}
             select
             fullWidth
             value={formData.priority}
@@ -97,10 +95,10 @@ const AddTaskModal: FC<Props> = ({ open, onClose, onSubmit }) => {
       </DialogContent>
       <DialogActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button onClick={onClose} color='error'>
-          Cancel
+          {t('AddTaskModal.buttons.cancel')}
         </Button>
         <Button onClick={handleSubmit} variant='contained'>
-          Create
+          {t('AddTaskModal.buttons.create')}
         </Button>
       </DialogActions>
     </Dialog>

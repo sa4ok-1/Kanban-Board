@@ -15,5 +15,19 @@
   "close": "Закрити",
   "export": "Експорт",
   "add_task": "Додати завдання",
-  "filter": "Фільтр"
+  "filter": "Фільтр",
+  "AddTaskModal": {
+    "title": "Додати нове завдання",
+    "fields": {
+      "title": "Назва",
+      "description": "Опис",
+      "status": "Статус завдання",
+      "priority": "Пріоритет завдання"
+    },
+    "buttons": {
+      "cancel": "Скасувати",
+      "create": "Створити"
+    }
+  }
 }
+
