@@ -28,4 +28,8 @@ export interface CreateTask {
   privacy: TaskPrivacy;
 }
 
-export type SortOption = 'byName' | 'completedFirst' | 'pendingFirst';
+export enum TaskSortOption {
+  ByName = 'byName',
+  CompletedFirst = 'completedFirst',
+  PendingFirst = 'pendingFirst',
+}

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const registrationStepOneSchema = z
   .object({
@@ -12,4 +12,3 @@ export const registrationStepOneSchema = z
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   });
-export type StepOneData = z.infer<typeof registrationStepOneSchema>;

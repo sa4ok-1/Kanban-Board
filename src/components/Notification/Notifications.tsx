@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type MouseEvent } from 'react';
 import IconButton from '@mui/material/IconButton';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
@@ -10,7 +10,7 @@ export default function Notifications() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -34,13 +34,15 @@ export default function Notifications() {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'notifications-button',
-        }}
-        PaperProps={{
-          style: {
-            width: '300px',
-            maxHeight: '400px',
+        slotProps={{
+          paper: {
+            style: {
+              width: '300px',
+              maxHeight: '400px',
+            },
+          },
+          list: {
+            'aria-labelledby': 'notifications-button',
           },
         }}
       >

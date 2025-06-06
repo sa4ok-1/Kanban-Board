@@ -1,11 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextField, Button, Stack, Paper, Typography } from '@mui/material';
-import {
-  registrationStepTwoSchema,
-  type StepTwoData,
-} from '../schemas/registrationStepTwoSchema';
-
+import { registrationStepTwoSchema } from '../schemas/registrationStepTwoSchema';
+import type { StepTwoData } from '../types/registrationStepTwo';
 type Props = {
   onSubmit: (data: StepTwoData) => void;
   onBack: () => void;

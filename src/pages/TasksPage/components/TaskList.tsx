@@ -1,7 +1,7 @@
 import { Paper, CircularProgress, Box } from '@mui/material';
 import { useRef, useEffect } from 'react';
-import TaskCard from './TaskCard';
-import type { CreateTask } from '../../../types/type';
+import TaskCard from './TaskCard/TaskCard';
+import type { CreateTask } from 'types/task';
 
 interface Props {
   tasks: CreateTask[];

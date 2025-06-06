@@ -1,16 +1,11 @@
 import { useState } from 'react';
 import { StepOneForm } from './components/StepOneForm';
 import { StepTwoForm } from './components/StepTwoForm';
-import type { StepOneData } from './schemas/registrationStepOneSchema';
-import type { StepTwoData } from './schemas/registrationStepTwoSchema';
-import {
-  ThemeProvider,
-  CssBaseline,
-  Container,
-  Paper,
-  Box,
-} from '@mui/material';
-import { darkTheme } from './config/LoginTheme';
+import type { StepOneData } from './types/registrationStepOne';
+import type { StepTwoData } from './types/registrationStepTwo';
+import { ThemeProvider, CssBaseline, Container, Paper } from '@mui/material';
+import { darkTheme } from 'common/LoginRegisterTheme/LoginTheme';
+import AuthLayout from 'layout/authLayout/AuthLayout';
 
 export default function RegisterPage() {
   const [step, setStep] = useState(1);
@@ -31,16 +26,7 @@ export default function RegisterPage() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Box
-        sx={{
-          minHeight: '100vh',
-          width: '100%',
-          background: 'linear-gradient(to right, #141e30, #243b55)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <AuthLayout>
         <Container maxWidth='sm'>
           <Paper elevation={6} sx={{ p: 4 }}>
             {step === 1 && <StepOneForm onSubmit={handleStepOneSubmit} />}
@@ -52,7 +38,7 @@ export default function RegisterPage() {
             )}
           </Paper>
         </Container>
-      </Box>
+      </AuthLayout>
     </ThemeProvider>
   );
 }

@@ -11,5 +11,3 @@ export const registrationStepTwoSchema = z.object({
       'Avatar format must be changed',
     ),
 });
-
-export type StepTwoData = z.infer<typeof registrationStepTwoSchema>;

@@ -1,11 +1,10 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo } from 'react';
 import { Box, Stack } from '@mui/material';
-import type { CreateTask } from '../../types/type';
-import AddTaskModal from './modals/CreateTaskDialogWindow';
+import { type CreateTask, TaskSortOption } from 'types/task';
+import CreateTaskDialog from './modals/TaskDialog/CreateTaskDialog';
 import HeaderActions from './components/HeaderActions';
-import FilterBar from './components/FilterBar';
+import FilterBar from './components/Filterbar/FilterBar';
 import TaskList from './components/TaskList';
-import type { SortOption } from '../../types/type';
 
 export default function TasksPage() {
   const [openModal, setOpenModal] = useState(false);
@@ -13,67 +12,61 @@ export default function TasksPage() {
   const [statusFilter, setStatusFilter] = useState('All');
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [sortOption, setSortOption] = useState<SortOption>('byName');
+  const [sortOption, setSortOption] = useState<TaskSortOption>(
+    TaskSortOption.CompletedFirst,
+  );
 
-  const handleSubmit = useCallback((data: CreateTask) => {
+  const handleSubmit = (data: CreateTask) => {
     setTasks((prev) => [...prev, data]);
-  }, []);
+  };
 
-  const handleEditTask = useCallback((updatedTask: CreateTask) => {
+  const handleEditTask = (updatedTask: CreateTask) => {
     setTasks((prev) =>
       prev.map((task) => (task.id === updatedTask.id ? updatedTask : task)),
     );
-  }, []);
+  };
 
-  const handleDeleteTask = useCallback((taskId: string) => {
+  const handleDeleteTask = (taskId: string) => {
     setTasks((prev) => prev.filter((task) => task.id !== taskId));
-  }, []);
+  };
 
-  const filterTasks = useCallback((tasks: CreateTask[], filter: string) => {
+  const filterTasks = (tasks: CreateTask[], filter: string) => {
     return filter === 'All'
       ? tasks
       : tasks.filter((task) => task.status === filter);
-  }, []);
+  };
 
-  const searchTasks = useCallback((tasks: CreateTask[], query: string) => {
+  const searchTasks = (tasks: CreateTask[], query: string) => {
     if (!query) return tasks;
     return tasks.filter(
       (task) =>
         task.title.toLowerCase().includes(query.toLowerCase()) ||
         task.description?.toLowerCase().includes(query.toLowerCase()),
     );
-  }, []);
+  };
 
-  const sortTasks = useCallback(
-    (tasks: CreateTask[], option: SortOption): CreateTask[] => {
-      const tasksCopy = [...tasks];
-      switch (option) {
-        case 'byName':
-          return tasksCopy.sort((a, b) => a.title.localeCompare(b.title));
-        case 'completedFirst':
-          return tasksCopy.sort((a) => (a.status === 'Done' ? -1 : 1));
-        case 'pendingFirst':
-          return tasksCopy.sort((a) => (a.status === 'Done' ? 1 : -1));
-        default:
-          return tasksCopy;
-      }
-    },
-    [],
-  );
+  const sortTasks = (
+    tasks: CreateTask[],
+    option: TaskSortOption,
+  ): CreateTask[] => {
+    const tasksCopy = [...tasks];
+    switch (option) {
+      case 'byName':
+        return tasksCopy.sort((a, b) => a.title.localeCompare(b.title));
+      case 'completedFirst':
+        return tasksCopy.sort((a) => (a.status === 'Done' ? -1 : 1));
+      case 'pendingFirst':
+        return tasksCopy.sort((a) => (a.status === 'Done' ? 1 : -1));
+      default:
+        return tasksCopy;
+    }
+  };
 
   const filteredAndSortedTasks = useMemo(() => {
     const filtered = filterTasks(tasks, statusFilter);
     const searched = searchTasks(filtered, searchQuery);
     return sortTasks(searched, sortOption);
-  }, [
-    tasks,
-    statusFilter,
-    searchQuery,
-    sortOption,
-    filterTasks,
-    searchTasks,
-    sortTasks,
-  ]);
+  }, [tasks, statusFilter, searchQuery, sortOption]);
 
   return (
     <Box sx={{ width: '100%', p: 1, boxSizing: 'border-box' }}>
@@ -96,7 +89,7 @@ export default function TasksPage() {
           onEditTask={handleEditTask}
           onDeleteTask={handleDeleteTask}
         />
-        <AddTaskModal
+        <CreateTaskDialog
           open={openModal}
           onClose={() => setOpenModal(false)}
           onSubmit={handleSubmit}

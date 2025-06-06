@@ -10,8 +10,8 @@ import {
   Stack,
 } from '@mui/material';
 import { nanoid } from 'nanoid';
-import { type CreateTask, TaskStatus, TaskPriority } from '../../../types/type';
-import { initialValues } from '../types/initialValues';
+import { type CreateTask, TaskStatus, TaskPriority } from 'types/task';
+import { initialValues } from '../../types/initialValues';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
   onSubmit: (data: CreateTask) => void;
 }
 
-const AddTaskModal: FC<Props> = ({ open, onClose, onSubmit }) => {
+const CreateTaskDialog: FC<Props> = ({ open, onClose, onSubmit }) => {
   const { t } = useTranslation('task_board_page');
   const [formData, setFormData] = useState<CreateTask>(initialValues);
 
@@ -105,4 +105,4 @@ const AddTaskModal: FC<Props> = ({ open, onClose, onSubmit }) => {
   );
 };
 
-export default AddTaskModal;
+export default CreateTaskDialog;

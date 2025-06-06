@@ -1,13 +1,14 @@
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
-import { darkTheme } from './config/LoginTheme';
-import { AppRoutes } from '../../routes/config';
+import { darkTheme } from 'common/LoginRegisterTheme/LoginTheme';
+import { AppRoutes } from 'routes/config';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type LoginFormData } from './types/type';
 import { loginSchema } from './schema/LoginSchemas';
 import { LoginForm } from '../Login/components';
-import { Container, CssBaseline, Box } from '@mui/material';
+import { Container, CssBaseline} from '@mui/material';
+import AuthLayout from 'layout/authLayout/AuthLayout';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function Login() {
 
   const onSubmit = async () => {
     try {
-      navigate('/', { replace: true });
+      navigate(location.state?.from?.pathname ?? { replace: true });
     } catch (error) {
       console.error('Login failed:', error);
     }
@@ -45,16 +46,7 @@ export default function Login() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Box
-        sx={{
-          minHeight: '100vh',
-          width: '100%',
-          background: 'linear-gradient(to right, #141e30, #243b55)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <AuthLayout>
         <Container maxWidth='sm'>
           <LoginForm
             isSubmitting={isSubmitting}
@@ -64,7 +56,7 @@ export default function Login() {
             register={register}
           />
         </Container>
-      </Box>
+      </AuthLayout>
     </ThemeProvider>
   );
 }

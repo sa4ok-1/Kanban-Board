@@ -4,7 +4,7 @@ import { LanguageSwitcher } from 'components/Header/components/LanguageSwitcher/
 import { Notifications } from 'components/Notification';
 import User from 'components/UserMenu/User';
 
-export default function ToolbarActionsSearch() {
+export default function Header() {
   return (
     <Stack direction='row' alignItems='center' spacing={1}>
       <LanguageSwitcher />

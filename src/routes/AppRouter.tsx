@@ -1,6 +1,6 @@
 import { useRoutes } from 'react-router-dom';
 import ProtectedRoute from './utils/ProtectedRoute';
-import { MainLayout } from 'components/MainLoyout';
+import { MainLayout } from 'layout/MainLoyout';
 import { DashBoard } from 'pages/Dashboard';
 import { TasksPage } from 'pages/TasksPage';
 import { KanbanPage } from 'pages/Kanban';
@@ -20,13 +20,8 @@ export const routes = [
     element: <RegisterPage />,
   },
   {
-    path: '*',
-    element: <NotFoundPage />,
-  },
-  {
     path: '/',
     element: <MainLayout />,
-    errorElement: <NotFoundPage />,
     children: [
       {
         path: AppRoutes.DASHBOARD,
@@ -61,6 +56,10 @@ export const routes = [
         ),
       },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ];
 

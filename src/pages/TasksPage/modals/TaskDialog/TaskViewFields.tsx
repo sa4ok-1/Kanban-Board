@@ -1,5 +1,5 @@
 import { Typography, Box } from '@mui/material';
-import type { CreateTask } from '../../../types/type';
+import type { CreateTask } from 'types/task';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

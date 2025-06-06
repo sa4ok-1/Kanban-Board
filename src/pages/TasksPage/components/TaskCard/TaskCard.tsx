@@ -1,26 +1,11 @@
-import {
-  Card,
-  CardContent,
-  Typography,
-  IconButton,
-  Menu,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-} from '@mui/material';
+import { Card, CardContent, Typography, IconButton } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useState, type MouseEvent } from 'react';
-import type { CreateTask } from '../../../types/type';
-import TaskDialog from '../modals/TaskInfoDialog';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { STATUS_CONFIG } from '../config/ConfigColor';
+import type { CreateTask } from 'types/task';
+import TaskInfoDialog from '../../modals/TaskDialog/TaskInfoDialog';
+import { STATUS_CONFIG } from '../../config/ConfigColor';
+import DeleteConfirmDialog from '../../modals/TaskDialog/DeleteTaskDialog';
+import TaskMenu from './TaskCardMenu';
 
 interface Props {
   task: CreateTask;
@@ -34,7 +19,6 @@ export default function TaskCard({ task, viewMode, onEdit, onDelete }: Props) {
   const [editMode, setEditMode] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  const menuOpen = Boolean(anchorEl);
 
   const statusConfig = STATUS_CONFIG[task.status];
 
@@ -127,40 +111,14 @@ export default function TaskCard({ task, viewMode, onEdit, onDelete }: Props) {
         </CardContent>
       </Card>
 
-      <Menu
+      <TaskMenu
         anchorEl={anchorEl}
-        open={menuOpen}
         onClose={handleMenuClose}
-        onClick={(e) => e.stopPropagation()}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        sx={{
-          '& .MuiPaper-root': {
-            marginTop: '8px',
-          },
-        }}
-      >
-        <MenuItem onClick={handleEditClick}>
-          <ListItemIcon>
-            <EditIcon fontSize='small' color='info' />
-          </ListItemIcon>
-          <ListItemText>Edit</ListItemText>
-        </MenuItem>
-        <MenuItem onClick={handleDeleteClick}>
-          <ListItemIcon>
-            <DeleteIcon fontSize='small' color='error' />
-          </ListItemIcon>
-          <ListItemText>Delete</ListItemText>
-        </MenuItem>
-      </Menu>
+        onEditClick={handleEditClick}
+        onDeleteClick={handleDeleteClick}
+      />
 
-      <TaskDialog
+      <TaskInfoDialog
         open={openDialog}
         onClose={handleDialogClose}
         task={task}
@@ -168,25 +126,12 @@ export default function TaskCard({ task, viewMode, onEdit, onDelete }: Props) {
         onSave={handleSave}
       />
 
-      <Dialog
+      <DeleteConfirmDialog
         open={deleteConfirmOpen}
-        onClose={handleDeleteCancel}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-      >
-        <DialogTitle id='alert-dialog-title'>Confirm Delete</DialogTitle>
-        <DialogContent>
-          <DialogContentText id='alert-dialog-description'>
-            Are you sure you want to delete "{task.title}"?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDeleteCancel}>Cancel</Button>
-          <Button onClick={handleDeleteConfirm} color='error' autoFocus>
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
+        taskTitle={task.title}
+        onCancel={handleDeleteCancel}
+        onConfirm={handleDeleteConfirm}
+      />
     </>
   );
 }

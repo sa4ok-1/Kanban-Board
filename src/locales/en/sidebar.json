@@ -1,6 +1,7 @@
 {
-  "Tasks": "Tasks",
-  "Dashboard": "Dashboard",
-  "Kanban": "Kanban",
-  "Profile": "Profile"
+  "tasks": "Tasks",
+  "dashboard": "DashBoard",
+  "kanban": "Kanban",
+  "profile": "Profile",
+  "logout": "Logout"
 }

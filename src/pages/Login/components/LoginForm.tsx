@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import type { LoginFormProps } from '../types/type';
 import { Link } from 'react-router-dom';
+
 export default function LoginForm({
   isSubmitting,
   onSubmit,

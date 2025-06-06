@@ -1,6 +1,6 @@
 import { TextField, MenuItem, Box } from '@mui/material';
 import { type ChangeEvent } from 'react';
-import { TaskStatus, TaskPriority, type CreateTask } from '../../../types/type';
+import { TaskStatus, TaskPriority, type CreateTask } from '../../../../types/task';
 import { useTranslation } from 'react-i18next';
 
 interface Props {

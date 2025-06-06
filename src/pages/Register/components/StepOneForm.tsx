@@ -1,10 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextField, Button, Stack, Paper, Typography } from '@mui/material';
-import {
-  registrationStepOneSchema,
-  type StepOneData,
-} from '../schemas/registrationStepOneSchema';
+import { registrationStepOneSchema } from '../schemas/registrationStepOneSchema';
+import type { StepOneData } from '../types/registrationStepOne';
 
 type Props = {
   onSubmit: (data: StepOneData) => void;

@@ -1,6 +1,7 @@
 {
-  "Tasks": "Завдання",
-  "Dashboard": "Панель",
-  "Kanban": "Канбан",
-  "Profile": "Профіль"
+  "tasks": "Задачі",
+  "dashboard": "Дашборд",
+  "kanban": "Канбан",
+  "profile": "Профіль",
+  "logout": "Вийти"
 }

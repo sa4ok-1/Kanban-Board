@@ -1,12 +1,17 @@
-import { type CreateTask, TaskStatus, TaskPrivacy, TaskPriority } from "types/type";
+import {
+  type CreateTask,
+  TaskStatus,
+  TaskPrivacy,
+  TaskPriority,
+} from 'types/task';
 
 export const initialValues: CreateTask = {
-  id: "",
-  title: "",
-  description: "",
+  id: '',
+  title: '',
+  description: '',
   status: TaskStatus.TODO,
   priority: TaskPriority.MEDIUM,
-  author: "",
-  executor: "",
+  author: '',
+  executor: '',
   privacy: TaskPrivacy.PUBLIC,
 };

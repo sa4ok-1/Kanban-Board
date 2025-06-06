@@ -1,4 +1,4 @@
-import { TaskStatus } from '../../../types/type';
+import { TaskStatus } from 'types/task';
 
 export const STATUS_CONFIG = {
   [TaskStatus.TODO]: {
