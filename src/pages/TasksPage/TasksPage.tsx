@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Box, Stack } from '@mui/material';
 import { type CreateTask, TaskSortOption } from 'types/task';
-import CreateTaskDialog from './modals/TaskDialog/CreateTaskDialog';
+import CreateTaskDialog from './modals/TaskDialog/CreateTaskDialog/CreateTaskDialog';
 import HeaderActions from './components/HeaderAction/HeaderActions';
 import FilterBar from './components/Filterbar/FilterBar';
 import TaskList from './components/TaskList/TaskList';

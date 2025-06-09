@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { Header } from 'components/Header';
 import { Sidebar } from 'components/Sidebar';
-import PageContent from './components/PageContent';
 
 export default function MainLayout() {
   return (
@@ -36,7 +35,6 @@ export default function MainLayout() {
           <Header />
         </Box>
 
-        <PageContent />
         <Outlet />
       </Box>
     </Box>

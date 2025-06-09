@@ -1,5 +1,5 @@
 import { Box, Container } from '@mui/material';
-import type { AuthLayoutProps } from './types/type';
+import type { AuthLayoutProps } from './type';
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (

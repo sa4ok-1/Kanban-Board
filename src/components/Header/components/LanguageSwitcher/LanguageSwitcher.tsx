@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import LanguageIcon from '@mui/icons-material/Language';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import i18n from '../../../../config/i18n';
+import i18n from 'config/i18n';
 
 export const LanguageSwitcher = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { nanoid } from 'nanoid';
 import { type CreateTask, TaskStatus, TaskPriority } from 'types/task';
-import { initialValues } from '../../types/initialValues';
+import { initialValues } from '../../../types/initialValues';
 import { useTranslation } from 'react-i18next';
 import type { CreateTaskDialogProps } from './type';
 

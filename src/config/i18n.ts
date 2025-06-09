@@ -1,5 +1,5 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
 export type TranslationResources = {
   [language: string]: {
@@ -10,7 +10,7 @@ export type TranslationResources = {
 const loadTranslations = async (): Promise<TranslationResources> => {
   const resources: TranslationResources = {};
 
-  const translationFiles = import.meta.glob("../locales/**/*.json", {
+  const translationFiles = import.meta.glob('../locales/**/*.json', {
     eager: true,
   });
 
@@ -35,11 +35,11 @@ const loadTranslations = async (): Promise<TranslationResources> => {
 
 const initializeI18n = async () => {
   const resources = await loadTranslations();
-  const defaultLanguage = localStorage.getItem("language") || "en";
+  const defaultLanguage = localStorage.getItem('language') || 'en';
 
   i18n.use(initReactI18next).init({
     lng: defaultLanguage,
-    fallbackLng: "en",
+    fallbackLng: 'en',
     debug: true,
     resources,
     interpolation: {
@@ -49,9 +49,7 @@ const initializeI18n = async () => {
 };
 
 initializeI18n().catch((error) => {
-  console.error("Failed to initialize i18n:", error);
+  console.error('Failed to initialize i18n:', error);
 });
 
 export default i18n;
-
-// debug: false - что бы не было logs в консоли

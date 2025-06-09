@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useState } from 'react';
-import { drawerWidth } from './constants';
+import { DRAWER_WIDTH } from './constants';
 import { useTranslation } from 'react-i18next';
 
 export default function Sidebar() {
@@ -27,7 +27,7 @@ export default function Sidebar() {
       variant='permanent'
       open={open}
       sx={{
-        width: open ? drawerWidth : 64,
+        width: open ? DRAWER_WIDTH : 64,
         flexShrink: 0,
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
@@ -41,7 +41,7 @@ export default function Sidebar() {
             duration: theme.transitions.duration.enteringScreen,
           }),
         '& .MuiDrawer-paper': {
-          width: open ? drawerWidth : 64,
+          width: open ? DRAWER_WIDTH : 64,
           overflowX: 'hidden',
           backgroundColor: 'background.paper',
           boxShadow: 3,

@@ -11,8 +11,8 @@ import { useState, useEffect, type ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { type CreateTask } from 'types/task';
 import { useTranslation } from 'react-i18next';
-import TaskEditFields from './TaskEditFields';
-import TaskViewFields from './TaskViewFields';
+import TaskEditFields from '../TaskEditFields/TaskEditFields';
+import TaskViewFields from '../TaskViewFields/TaskViewFields';
 import type { TaskDialogProps } from './type';
 
 export default function TaskInfoDialog({
