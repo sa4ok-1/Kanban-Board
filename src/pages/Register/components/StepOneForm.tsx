@@ -3,12 +3,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { TextField, Button, Stack, Paper, Typography } from '@mui/material';
 import { registrationStepOneSchema } from '../schemas/registrationStepOneSchema';
 import type { StepOneData } from '../types/registrationStepOne';
+import type { StepOneProps } from './types/type';
 
-type Props = {
-  onSubmit: (data: StepOneData) => void;
-};
-
-export function StepOneForm({ onSubmit }: Props) {
+export function StepOneForm({ onSubmit }: StepOneProps) {
   const {
     register,
     handleSubmit,

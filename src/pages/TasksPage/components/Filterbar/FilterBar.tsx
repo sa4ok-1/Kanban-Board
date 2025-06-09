@@ -15,18 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { TaskStatus } from 'types/task';
 import SearchInput from '../SearchInput/SearchInput';
 import { TaskSortOption } from 'types/task';
-
-interface Props {
-  statusFilter: string;
-  setStatusFilter: (value: string) => void;
-  viewMode: 'list' | 'grid';
-  setViewMode: (value: 'list' | 'grid') => void;
-  searchQuery: string;
-  setSearchQuery: (value: string) => void;
-  onSearch: (query: string) => void;
-  sortOption: TaskSortOption;
-  setSortOption: (value: TaskSortOption) => void;
-}
+import type { FilterProps } from './type';
 
 export default function FilterBar({
   statusFilter,
@@ -38,7 +27,7 @@ export default function FilterBar({
   onSearch,
   sortOption,
   setSortOption,
-}: Props) {
+}: FilterProps) {
   const { t } = useTranslation('task_board_page');
 
   const handleSortChange = (e: SelectChangeEvent<TaskSortOption>) => {

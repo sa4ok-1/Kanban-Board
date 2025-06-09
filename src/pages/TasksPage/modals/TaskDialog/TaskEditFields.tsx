@@ -1,14 +1,12 @@
 import { TextField, MenuItem, Box } from '@mui/material';
-import { type ChangeEvent } from 'react';
-import { TaskStatus, TaskPriority, type CreateTask } from '../../../../types/task';
+import { TaskStatus, TaskPriority } from 'types/task';
 import { useTranslation } from 'react-i18next';
+import type { TaskEditFieldsProps } from './type';
 
-interface Props {
-  task: CreateTask;
-  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-}
-
-export default function TaskEditFields({ task, onChange }: Props) {
+export default function TaskEditFields({
+  task,
+  onChange,
+}: TaskEditFieldsProps) {
   const { t } = useTranslation('task_info_dialog');
 
   return (

@@ -6,12 +6,8 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import type { FC } from 'react';
+import type { MobileSearchDialogProps } from './type';
 
-interface MobileSearchDialogProps {
-  open: boolean;
-  onClose: () => void;
-  children: React.ReactNode;
-}
 
 const MobileSearchDialog: FC<MobileSearchDialogProps> = ({ open, onClose, children }) => {
   const { t } = useTranslation('task_board_page');

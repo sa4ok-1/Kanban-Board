@@ -6,20 +6,14 @@ import {
   DialogActions,
   Button,
 } from '@mui/material';
-
-interface DeleteConfirmDialogProps {
-  open: boolean;
-  taskTitle: string;
-  onCancel: () => void;
-  onConfirm: () => void;
-}
+import type { DeleteDialogProps } from './type';
 
 export default function DeleteConfirmDialog({
   open,
   taskTitle,
   onCancel,
   onConfirm,
-}: DeleteConfirmDialogProps) {
+}: DeleteDialogProps) {
   return (
     <Dialog
       open={open}

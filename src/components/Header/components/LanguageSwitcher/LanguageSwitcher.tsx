@@ -27,8 +27,8 @@ export const LanguageSwitcher = () => {
   return (
     <div>
       <IconButton
-        color="inherit"
-        aria-label="change language"
+        color='inherit'
+        aria-label='change language'
         onClick={handleLanguageClick}
       >
         <LanguageIcon />
@@ -54,3 +54,4 @@ export const LanguageSwitcher = () => {
     </div>
   );
 };
+export default LanguageSwitcher;

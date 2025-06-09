@@ -1,8 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
-import AppTitle from '../../components/Header/components/AppTitle/AppTitle';
 import { Header } from 'components/Header';
-import Sidebar from 'components/Sidebar/Sidebar';
+import { Sidebar } from 'components/Sidebar';
 import PageContent from './components/PageContent';
 
 export default function MainLayout() {
@@ -34,9 +33,6 @@ export default function MainLayout() {
             top: 0,
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <AppTitle />
-          </Box>
           <Header />
         </Box>
 

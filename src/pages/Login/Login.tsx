@@ -1,14 +1,14 @@
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
-import { darkTheme } from 'common/LoginRegisterTheme/LoginTheme';
+import { darkTheme } from 'common/LoginRegisterTheme';
 import { AppRoutes } from 'routes/config';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { type LoginFormData } from './types/type';
+import type { LoginFormData } from './types/type';
 import { loginSchema } from './schema/LoginSchemas';
-import { LoginForm } from '../Login/components';
-import { Container, CssBaseline} from '@mui/material';
-import AuthLayout from 'layout/authLayout/AuthLayout';
+import LoginForm from '../Login/components/LoginForm';
+import { Container, CssBaseline } from '@mui/material';
+import { AuthLayout } from 'layout/authLayout';
 
 export default function Login() {
   const navigate = useNavigate();

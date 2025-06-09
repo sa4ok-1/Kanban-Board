@@ -1,12 +1,8 @@
 import { Typography, Box } from '@mui/material';
-import type { CreateTask } from 'types/task';
 import { useTranslation } from 'react-i18next';
+import type { TaskViewFieldsProps } from './type';
 
-interface Props {
-  task: CreateTask;
-}
-
-export default function TaskViewFields({ task }: Props) {
+export default function TaskViewFields({ task }: TaskViewFieldsProps) {
   const { t } = useTranslation('task_info_dialog');
 
   return (

@@ -3,12 +3,9 @@ import DownloadIcon from '@mui/icons-material/Download';
 import AddIcon from '@mui/icons-material/Add';
 import { useTranslation } from 'react-i18next';
 import { gradientText } from 'infrastructure/theme/config/typographyStyles';
+import type { HeaderActionsProps } from './type';
 
-interface Props {
-  onAddTask: () => void;
-}
-
-export default function HeaderActions({ onAddTask }: Props) {
+export default function HeaderActions({ onAddTask }: HeaderActionsProps) {
   const { t } = useTranslation('task_board_page');
 
   return (

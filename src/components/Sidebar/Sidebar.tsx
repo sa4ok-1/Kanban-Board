@@ -16,7 +16,6 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useState } from 'react';
 import { drawerWidth } from './constants';
-
 import { useTranslation } from 'react-i18next';
 
 export default function Sidebar() {

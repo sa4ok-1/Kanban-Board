@@ -6,15 +6,14 @@ import TaskInfoDialog from '../../modals/TaskDialog/TaskInfoDialog';
 import { STATUS_CONFIG } from '../../config/ConfigColor';
 import DeleteConfirmDialog from '../../modals/TaskDialog/DeleteTaskDialog';
 import TaskMenu from './TaskCardMenu';
+import type { TaskCardProps } from './type';
 
-interface Props {
-  task: CreateTask;
-  viewMode: 'list' | 'grid';
-  onEdit: (task: CreateTask) => void;
-  onDelete: (taskId: string) => void;
-}
-
-export default function TaskCard({ task, viewMode, onEdit, onDelete }: Props) {
+export default function TaskCard({
+  task,
+  viewMode,
+  onEdit,
+  onDelete,
+}: TaskCardProps) {
   const [openDialog, setOpenDialog] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

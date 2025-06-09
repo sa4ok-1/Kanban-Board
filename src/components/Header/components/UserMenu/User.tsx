@@ -6,7 +6,7 @@ import { useState, type MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from 'routes/config';
 
-export default function User() {
+export default function UserMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);

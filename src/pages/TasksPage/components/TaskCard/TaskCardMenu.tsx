@@ -2,13 +2,7 @@ import { Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import type { MouseEvent } from 'react';
-
-interface TaskMenuProps {
-  anchorEl: HTMLElement | null;
-  onClose: () => void;
-  onEditClick: () => void;
-  onDeleteClick: () => void;
-}
+import type { TaskMenuProps } from './type';
 
 export default function TaskMenu({
   anchorEl,

@@ -1,9 +1,5 @@
 import { Box, Container } from '@mui/material';
-import type { ReactNode } from 'react';
-
-interface AuthLayoutProps {
-  children: ReactNode;
-}
+import type { AuthLayoutProps } from './types/type';
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (

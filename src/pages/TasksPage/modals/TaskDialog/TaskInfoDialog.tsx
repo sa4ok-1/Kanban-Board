@@ -13,14 +13,7 @@ import { type CreateTask } from 'types/task';
 import { useTranslation } from 'react-i18next';
 import TaskEditFields from './TaskEditFields';
 import TaskViewFields from './TaskViewFields';
-
-interface TaskDialogProps {
-  open: boolean;
-  onClose: () => void;
-  task: CreateTask;
-  editMode?: boolean;
-  onSave?: (updatedTask: CreateTask) => void;
-}
+import type { TaskDialogProps } from './type';
 
 export default function TaskInfoDialog({
   open,

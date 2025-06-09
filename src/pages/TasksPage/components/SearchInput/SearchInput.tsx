@@ -11,18 +11,13 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DesktopSearch from './DesktopSearch';
 import MobileSearchDialog from './MobileSearchDialog';
-
-interface Props {
-  searchQuery: string;
-  setSearchQuery: (value: string) => void;
-  onSearch: (query: string) => void;
-}
+import type { SeacrhInputProps } from './type';
 
 export default function SearchInput({
   searchQuery,
   setSearchQuery,
   onSearch,
-}: Props) {
+}: SeacrhInputProps) {
   const { t } = useTranslation('task_board_page');
   const [showSearch, setShowSearch] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);

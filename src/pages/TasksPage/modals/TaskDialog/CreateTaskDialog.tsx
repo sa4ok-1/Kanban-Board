@@ -13,14 +13,13 @@ import { nanoid } from 'nanoid';
 import { type CreateTask, TaskStatus, TaskPriority } from 'types/task';
 import { initialValues } from '../../types/initialValues';
 import { useTranslation } from 'react-i18next';
+import type { CreateTaskDialogProps } from './type';
 
-interface Props {
-  open: boolean;
-  onClose: () => void;
-  onSubmit: (data: CreateTask) => void;
-}
-
-const CreateTaskDialog: FC<Props> = ({ open, onClose, onSubmit }) => {
+const CreateTaskDialog: FC<CreateTaskDialogProps> = ({
+  open,
+  onClose,
+  onSubmit,
+}) => {
   const { t } = useTranslation('task_board_page');
   const [formData, setFormData] = useState<CreateTask>(initialValues);
 

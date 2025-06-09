@@ -1,13 +1,7 @@
 import { Box, IconButton, Slide, Tooltip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import type { FC, ReactNode } from 'react';
-
-interface DesktopSearchProps {
-  showSearch: boolean;
-  toggleSearch: () => void;
-  children: ReactNode;
-  tooltipTitle: string;
-}
+import type { FC } from 'react';
+import type { DesktopSearchProps } from './type';
 
 const DesktopSearch: FC<DesktopSearchProps> = ({
   showSearch,
