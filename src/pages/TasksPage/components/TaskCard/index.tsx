@@ -7,6 +7,7 @@ import TaskInfoDialog from '../../modals/TaskInfoDialog';
 import DeleteConfirmDialog from '../../modals/DeleteTask';
 import { STATUS_CONFIG } from '../../config/ConfigColor';
 import TaskMenu from './TaskCardMenu';
+import { useTranslation } from 'react-i18next';
 
 export default function TaskCard({
   task,
@@ -18,8 +19,8 @@ export default function TaskCard({
   const [editMode, setEditMode] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-
   const statusConfig = STATUS_CONFIG[task.status];
+  const { t } = useTranslation('task_board_page');
 
   const handleSettingsClick = (event: MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -99,13 +100,13 @@ export default function TaskCard({
             variant='body2'
             sx={{ fontSize: '18px', color: 'text.secondary' }}
           >
-            Description: {task.description}
+            Description: {t(`status.${task.description}`)}
           </Typography>
           <Typography
             variant='body2'
             sx={{ fontSize: '18px', color: 'text.secondary' }}
           >
-            Status: {task.status}
+            Status: {t(`status.${task.status}`)}
           </Typography>
         </CardContent>
       </Card>

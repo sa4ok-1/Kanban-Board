@@ -16,7 +16,7 @@
   "export": "Експорт",
   "add_task": "Додати завдання",
   "filter": "Фільтр",
-  "Tasks Board": "Дошка завдань", 
+  "Tasks Board": "Дошка завдань",
   "AddTaskModal": {
     "title": "Додати нове завдання",
     "fields": {

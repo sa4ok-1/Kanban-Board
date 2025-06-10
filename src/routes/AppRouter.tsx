@@ -1,5 +1,5 @@
 import { useRoutes } from 'react-router-dom';
-import { AppRoutes } from './config';
+import {AppRoutes} from './config';
 import ProtectedRoute from './utils/ProtectedRoute';
 import MainLayout from 'layout/MainLoyout';
 import DashBoard from 'pages/Dashboard';

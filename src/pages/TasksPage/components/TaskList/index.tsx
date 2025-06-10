@@ -1,43 +1,15 @@
 import { Paper, CircularProgress, Box } from '@mui/material';
-import { useRef, useEffect } from 'react';
-import TaskCard from '../TaskCard/TaskCard';
+import TaskCard from '../TaskCard';
 import type { TaskListProps } from './type';
 
 export default function TaskList({
   tasks,
   viewMode,
-  onLoadMore,
   hasMore = true,
   loading = false,
   onEditTask,
   onDeleteTask,
 }: TaskListProps) {
-  const loaderRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!onLoadMore || loading || !hasMore) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          onLoadMore();
-        }
-      },
-      { root: null, rootMargin: '20px', threshold: 0.1 },
-    );
-
-    const currentLoader = loaderRef.current;
-    if (currentLoader) {
-      observer.observe(currentLoader);
-    }
-
-    return () => {
-      if (currentLoader) {
-        observer.unobserve(currentLoader);
-      }
-    };
-  }, [onLoadMore, loading, hasMore]);
-
   return (
     <Paper
       sx={{
@@ -67,7 +39,6 @@ export default function TaskList({
 
       {hasMore && (
         <Box
-          ref={loaderRef}
           sx={{
             display: 'flex',
             justifyContent: 'center',
