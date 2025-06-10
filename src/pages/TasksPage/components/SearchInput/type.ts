@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
 
 export interface DesktopSearchProps {
   showSearch: boolean;
@@ -10,11 +10,23 @@ export interface DesktopSearchProps {
 export interface MobileSearchDialogProps {
   open: boolean;
   onClose: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export interface SeacrhInputProps {
   searchQuery: string;
   setSearchQuery: (value: string) => void;
   onSearch: (query: string) => void;
+}
+
+export interface SearchInputFieldProps {
+  searchQuery: string;
+  setSearchQuery: (value: string) => void;
+  onSearch: (query: string) => void;
+  inputRef: RefObject<HTMLInputElement | null>;
+  isMobile: boolean;
+  autoFocus?: boolean;
+  onClear?: () => void;
+  onBlur?: () => void;
+  placeholder: string;
 }

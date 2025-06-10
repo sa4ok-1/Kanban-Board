@@ -1,14 +1,14 @@
 import { useRoutes } from 'react-router-dom';
-import ProtectedRoute from './utils/ProtectedRoute';
-import { MainLayout } from 'layout/MainLoyout';
-import { DashBoard } from 'pages/Dashboard';
-import { TasksPage } from 'pages/TasksPage';
-import { KanbanPage } from 'pages/Kanban';
 import { AppRoutes } from './config';
-import { ProfilePage } from 'pages/Profile';
-import { Login } from 'pages/Login';
-import { RegisterPage } from 'pages/Register';
-import { NotFoundPage } from 'pages/Page404';
+import ProtectedRoute from './utils/ProtectedRoute';
+import MainLayout from 'layout/MainLoyout';
+import DashBoard from 'pages/Dashboard';
+import TasksPage from 'pages/TasksPage';
+import KanbanPage from 'pages/Kanban';
+import ProfilePage from 'pages/Profile';
+import Login from 'pages/Login';
+import RegisterPage from 'pages/Register';
+import NotFoundPage from 'pages/Page404';
 
 export const routes = [
   {

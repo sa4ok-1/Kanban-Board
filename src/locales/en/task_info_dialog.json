@@ -11,27 +11,29 @@
       "executor": "Executor",
       "privacy": "Privacy"
     },
-    "status_options": {
-      "todo": "To Do",
+   "status_options": {
+      "to_do": "To Do",
       "in_progress": "In Progress",
       "done": "Done"
     },
     "priority_options": {
       "low": "Low",
       "medium": "Medium",
-      "high": "High"
+      "high": "High",
+      "critical": "Critical"
     },
     "privacy_options": {
       "public": "Public",
-      "private": "Private"
-    },
-    "buttons": {
-      "cancel": "Cancel",
-      "close": "Close",
-      "save": "Save",
-      "complete": "Complete"
-    },
-    "unknown": "Unknown",
-    "unassigned": "Unassigned"
-  }
+      "private": "Private",
+      "custom": "Custom"
+    }
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "complete": "Complete"
+  },
+  "unknown": "Unknown",
+  "unassigned": "Unassigned"
 }

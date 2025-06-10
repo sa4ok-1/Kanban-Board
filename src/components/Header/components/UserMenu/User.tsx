@@ -32,7 +32,14 @@ export default function UserMenu() {
   return (
     <>
       <IconButton edge='end' aria-label='user profile' onClick={handleClick}>
-        <Avatar sx={{ width: 32, height: 32 }}>U</Avatar>
+        <Avatar
+          sx={{
+            width: 32,
+            height: 32,
+          }}
+        >
+          U
+        </Avatar>
       </IconButton>
 
       <Menu
@@ -42,16 +49,13 @@ export default function UserMenu() {
         onClick={handleClose}
         slotProps={{
           paper: {
-            elevation: 0,
             sx: {
-              overflow: 'visible',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-              mt: 1.5,
-              '& .MuiAvatar-root': {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
+              bgcolor: '#f5f5f5',
+              '& .MuiMenuItem-root': {
+                color: 'darkblue',
+                '&:hover': {
+                  bgcolor: 'lightblue',
+                },
               },
             },
           },

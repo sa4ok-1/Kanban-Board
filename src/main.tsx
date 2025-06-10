@@ -4,8 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import './index.css';
 import './config/i18n.ts';
-import {AppRouter} from './routes';
-import theme from './infrastructure/theme/theme.ts';
+import { AppRouter } from './routes';
+import theme from './infrastructure/MainTheme/theme.ts';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

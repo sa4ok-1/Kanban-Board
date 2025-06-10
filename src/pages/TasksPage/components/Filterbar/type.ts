@@ -1,4 +1,4 @@
-import type { TaskSortOption } from "types/task";
+import type { TaskSortOption } from 'types/task';
 
 export interface FilterProps {
   statusFilter: string;

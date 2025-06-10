@@ -1,12 +1,12 @@
+import { useState, type MouseEvent } from 'react';
 import { Card, CardContent, Typography, IconButton } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useState, type MouseEvent } from 'react';
 import type { CreateTask } from 'types/task';
-import TaskInfoDialog from '../../modals/TaskDialog/TaskInfoDialog/TaskInfoDialog';
-import { STATUS_CONFIG } from '../../config/ConfigColor';
-import DeleteConfirmDialog from '../../modals/TaskDialog/DeleteTask/DeleteTaskDialog';
-import TaskMenu from './TaskCardMenu';
 import type { TaskCardProps } from './type';
+import TaskInfoDialog from '../../modals/TaskInfoDialog';
+import DeleteConfirmDialog from '../../modals/DeleteTask';
+import { STATUS_CONFIG } from '../../config/ConfigColor';
+import TaskMenu from './TaskCardMenu';
 
 export default function TaskCard({
   task,
