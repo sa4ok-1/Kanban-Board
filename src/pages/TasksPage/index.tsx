@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Box, Stack } from '@mui/material';
-import { type CreateTask, TaskSortOption } from 'types/task';
+import { type Task, TaskSortOption } from 'types/task';
 import CreateTaskDialog from './modals/CreateTaskDialog';
 import HeaderActions from './components/HeaderAction';
 import FilterBar from './components/Filterbar';
@@ -8,7 +8,7 @@ import TaskList from './components/TaskList';
 
 export default function TasksPage() {
   const [openModal, setOpenModal] = useState(false);
-  const [tasks, setTasks] = useState<CreateTask[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [statusFilter, setStatusFilter] = useState('All');
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -16,11 +16,11 @@ export default function TasksPage() {
     TaskSortOption.CompletedFirst,
   );
 
-  const handleSubmit = (data: CreateTask) => {
+  const handleSubmit = (data: Task) => {
     setTasks((prev) => [...prev, data]);
   };
 
-  const handleEditTask = (updatedTask: CreateTask) => {
+  const handleEditTask = (updatedTask: Task) => {
     setTasks((prev) =>
       prev.map((task) => (task.id === updatedTask.id ? updatedTask : task)),
     );
@@ -30,13 +30,13 @@ export default function TasksPage() {
     setTasks((prev) => prev.filter((task) => task.id !== taskId));
   };
 
-  const filterTasks = (tasks: CreateTask[], filter: string) => {
+  const filterTasks = (tasks: Task[], filter: string) => {
     return filter === 'All'
       ? tasks
       : tasks.filter((task) => task.status === filter);
   };
 
-  const searchTasks = (tasks: CreateTask[], query: string) => {
+  const searchTasks = (tasks: Task[], query: string) => {
     if (!query) return tasks;
     return tasks.filter(
       (task) =>
@@ -45,10 +45,7 @@ export default function TasksPage() {
     );
   };
 
-  const sortTasks = (
-    tasks: CreateTask[],
-    option: TaskSortOption,
-  ): CreateTask[] => {
+  const sortTasks = (tasks: Task[], option: TaskSortOption): Task[] => {
     const tasksCopy = [...tasks];
     switch (option) {
       case 'byName':

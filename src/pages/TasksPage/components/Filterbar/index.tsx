@@ -1,42 +1,48 @@
 import {
   Stack,
-  Typography,
-  Select,
+  IconButton,
+  Menu,
   MenuItem,
   ToggleButton,
   ToggleButtonGroup,
   Box,
-  type SelectChangeEvent,
+  Tooltip,
 } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import SortIcon from '@mui/icons-material/Sort';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import { useTranslation } from 'react-i18next';
 import { TaskStatus } from 'types/task';
 import SearchInput from '../SearchInput';
-import { TaskSortOption } from 'types/task';
-import type { FilterProps } from './type';
 import { useTheme } from '@mui/material/styles';
-
 import { filterBarStyles } from './styles';
+import { useFilterBar } from './useFilterBar';
+import type { FilterProps } from './type';
+import { TaskSortOption } from 'types/task';
 
-export default function FilterBar({
-  statusFilter,
-  setStatusFilter,
-  viewMode,
-  setViewMode,
-  searchQuery,
-  setSearchQuery,
-  onSearch,
-  sortOption,
-  setSortOption,
-}: FilterProps) {
+export default function FilterBar(props: FilterProps) {
   const { t } = useTranslation('task_board_page');
   const theme = useTheme();
-
-  const handleSortChange = (e: SelectChangeEvent<TaskSortOption>) => {
-    setSortOption(e.target.value as TaskSortOption);
-  };
+  const {
+    statusFilter,
+    viewMode,
+    setViewMode,
+    searchQuery,
+    setSearchQuery,
+    onSearch,
+    sortOption,
+    filterAnchorEl,
+    sortAnchorEl,
+    filterOpen,
+    sortOpen,
+    handleFilterClick,
+    handleFilterClose,
+    handleFilterSelect,
+    handleSortClick,
+    handleSortClose,
+    handleSortSelect,
+  } = useFilterBar(props);
 
   return (
     <Stack sx={filterBarStyles.container}>
@@ -46,41 +52,67 @@ export default function FilterBar({
         alignItems='center'
         spacing={1}
       >
-        <Typography
-          variant='h6'
-          fontWeight='bold'
-          sx={filterBarStyles.headerStack(theme)}
-        >
-          <FilterListIcon fontSize='small' />
-          {t('filter')}:
-        </Typography>
+        <Tooltip title={t('filter')}>
+          <IconButton
+            onClick={handleFilterClick}
+            color={filterOpen ? 'primary' : 'default'}
+            size='small'
+          >
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
 
-        <Select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          size='small'
-          sx={filterBarStyles.select}
+        <Menu
+          anchorEl={filterAnchorEl}
+          open={filterOpen}
+          onClose={handleFilterClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
         >
-          <MenuItem value='All'>{t('all')}</MenuItem>
+          <MenuItem
+            selected={statusFilter === 'All'}
+            onClick={() => handleFilterSelect('All')}
+          >
+            {t('all')}
+          </MenuItem>
           {Object.values(TaskStatus).map((status) => (
-            <MenuItem key={status} value={status}>
+            <MenuItem
+              key={status}
+              selected={statusFilter === status}
+              onClick={() => handleFilterSelect(status)}
+            >
               {t(`status.${status}`)}
             </MenuItem>
           ))}
-        </Select>
+        </Menu>
 
-        <Select
-          value={sortOption}
-          onChange={handleSortChange}
-          size='small'
-          sx={filterBarStyles.sortSelect}
+        <Tooltip title={t('sort')}>
+          <IconButton
+            onClick={handleSortClick}
+            color={sortOpen ? 'primary' : 'default'}
+            size='small'
+          >
+            <SortIcon />
+          </IconButton>
+        </Tooltip>
+
+        <Menu
+          anchorEl={sortAnchorEl}
+          open={sortOpen}
+          onClose={handleSortClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
         >
           {Object.values(TaskSortOption).map((option) => (
-            <MenuItem key={option} value={option}>
+            <MenuItem
+              key={option}
+              selected={sortOption === option}
+              onClick={() => handleSortSelect(option)}
+            >
               {t(`sortOptions.${option}`)}
             </MenuItem>
           ))}
-        </Select>
+        </Menu>
       </Stack>
 
       <Stack

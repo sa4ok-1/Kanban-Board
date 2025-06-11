@@ -7,19 +7,19 @@ export default function TaskEditFields({
   task,
   onChange,
 }: TaskEditFieldsProps) {
-  const { t } = useTranslation('task_info_dialog');
+  const { t } = useTranslation('task_dialog');
 
   return (
     <Box display='flex' flexDirection='column' gap={2}>
       <TextField
-        label={t('task_dialog.fields.title')}
+        label={t('fields.title')}
         name='title'
         value={task.title}
         onChange={onChange}
         fullWidth
       />
       <TextField
-        label={t('task_dialog.fields.description')}
+        label={t('fields.description')}
         name='description'
         value={task.description}
         onChange={onChange}
@@ -29,7 +29,7 @@ export default function TaskEditFields({
       />
       <TextField
         select
-        label={t('task_dialog.fields.status')}
+        label={t('fields.status')}
         name='status'
         value={task.status}
         onChange={onChange}
@@ -37,13 +37,13 @@ export default function TaskEditFields({
       >
         {Object.entries(TaskStatus).map(([key, value]) => (
           <MenuItem key={key} value={value}>
-            {t(`task_dialog.status_options.${value.toLowerCase().replace(' ', '_')}`)}
+            {t(`status_options.${value.toLowerCase().replace(' ', '_')}`)}
           </MenuItem>
         ))}
       </TextField>
       <TextField
         select
-        label={t('task_dialog.fields.priority')}
+        label={t('fields.priority')}
         name='priority'
         value={task.priority}
         onChange={onChange}
@@ -51,19 +51,19 @@ export default function TaskEditFields({
       >
         {Object.entries(TaskPriority).map(([key, value]) => (
           <MenuItem key={key} value={value}>
-            {t(`task_dialog.priority_options.${value.toLowerCase()}`)}
+            {t(`priority_options.${value.toLowerCase()}`)}
           </MenuItem>
         ))}
       </TextField>
       <TextField
-        label={t('task_dialog.fields.author')}
+        label={t('fields.author')}
         name='author'
         value={task.author || ''}
         onChange={onChange}
         fullWidth
       />
       <TextField
-        label={t('task_dialog.fields.executor')}
+        label={t('fields.executor')}
         name='executor'
         value={task.executor || ''}
         onChange={onChange}
@@ -71,7 +71,7 @@ export default function TaskEditFields({
       />
       <TextField
         select
-        label={t('task_dialog.fields.privacy')}
+        label={t('fields.privacy')}
         name='privacy'
         value={task.privacy}
         onChange={onChange}
@@ -79,7 +79,7 @@ export default function TaskEditFields({
       >
         {Object.entries(TaskPrivacy).map(([key, value]) => (
           <MenuItem key={key} value={value}>
-            {t(`task_dialog.privacy_options.${value.toLowerCase()}`)}
+            {t(`privacy_options.${value.toLowerCase()}`)}
           </MenuItem>
         ))}
       </TextField>

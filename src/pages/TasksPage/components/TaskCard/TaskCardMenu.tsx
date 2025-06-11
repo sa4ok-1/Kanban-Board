@@ -1,4 +1,4 @@
-import { Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Menu, MenuItem, ListItemIcon } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import type { MouseEvent } from 'react';
@@ -38,15 +38,13 @@ export default function TaskMenu({
     >
       <MenuItem onClick={onEditClick}>
         <ListItemIcon>
-          <EditIcon fontSize='small' color='info' />
+          <EditIcon fontSize='small' color='custom' />
         </ListItemIcon>
-        <ListItemText>Edit</ListItemText>
       </MenuItem>
       <MenuItem onClick={onDeleteClick}>
         <ListItemIcon>
           <DeleteIcon fontSize='small' color='error' />
         </ListItemIcon>
-        <ListItemText>Delete</ListItemText>
       </MenuItem>
     </Menu>
   );

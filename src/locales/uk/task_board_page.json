@@ -11,6 +11,13 @@
     "completedFirst": "Виконані першими",
     "pendingFirst": "Очікують першими"
   },
+  "fields": {
+    "title": "Назва",
+    "description": "Опис",
+    "status": "Статус"
+  },
+  "sort": "Сортування",
+
   "search": "Пошук",
   "close": "Закрити",
   "export": "Експорт",
@@ -28,7 +35,7 @@
     "buttons": {
       "cancel": "Скасувати",
       "create": "Створити",
-      "close" :"Закрити"
+      "close": "Закрити"
     }
   }
 }

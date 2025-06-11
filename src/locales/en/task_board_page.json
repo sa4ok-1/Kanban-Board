@@ -11,6 +11,12 @@
     "completedFirst": "Completed first",
     "pendingFirst": "Pending first"
   },
+  "fields": {
+    "title": "Title",
+    "description": "Description",
+    "status": "Status"
+  },
+  "sort": "Sort",
   "search": "Search",
   "close": "Close",
   "export": "Export",
@@ -28,7 +34,7 @@
     "buttons": {
       "cancel": "Cancel",
       "create": "Create",
-      "close" :"Close"
+      "close": "Close"
     }
   }
 }

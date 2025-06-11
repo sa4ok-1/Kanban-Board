@@ -1,9 +1,9 @@
-import type { CreateTask } from "types/task";
+import type { Task } from 'types/task';
 
 export interface TaskCardProps {
-  task: CreateTask;
+  task: Task;
   viewMode: 'list' | 'grid';
-  onEdit: (task: CreateTask) => void;
+  onEdit: (task: Task) => void;
   onDelete: (taskId: string) => void;
 }
 
@@ -13,4 +13,3 @@ export interface TaskMenuProps {
   onEditClick: () => void;
   onDeleteClick: () => void;
 }
-

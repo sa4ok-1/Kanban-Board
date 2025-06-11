@@ -17,7 +17,7 @@ export enum TaskPrivacy {
   CUSTOM = 'custom',
 }
 
-export interface CreateTask {
+export interface Task {
   id: string;
   title: string;
   description: string;
