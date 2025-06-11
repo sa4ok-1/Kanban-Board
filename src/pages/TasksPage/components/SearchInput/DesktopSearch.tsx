@@ -1,14 +1,13 @@
 import { Box, IconButton, Slide, Tooltip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import type { FC } from 'react';
 import type { DesktopSearchProps } from './type';
 
-const DesktopSearch: FC<DesktopSearchProps> = ({
+const DesktopSearch = ({
   showSearch,
   toggleSearch,
   children,
   tooltipTitle,
-}) => {
+}: DesktopSearchProps) => {
   return (
     <Box
       sx={{

@@ -1,7 +1,7 @@
 import { useRoutes } from 'react-router-dom';
 import {AppRoutes} from './config';
 import ProtectedRoute from './utils/ProtectedRoute';
-import MainLayout from 'layout/MainLoyout';
+import MainLayout from 'layout/MainLayout';
 import DashBoard from 'pages/Dashboard';
 import TasksPage from 'pages/TasksPage';
 import KanbanPage from 'pages/Kanban';

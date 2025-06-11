@@ -1,8 +1,4 @@
-import {
-  IconButton,
-  useMediaQuery,
-  type Theme,
-} from '@mui/material';
+import { IconButton, useMediaQuery, type Theme } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,11 +16,16 @@ export default function SearchInput({
   const [showSearch, setShowSearch] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('sm'),
+  );
 
   const toggleSearch = () => {
-    if (isMobile === undefined) return;
-    isMobile ? setMobileOpen(true) : setShowSearch((prev) => !prev);
+    if (isMobile) {
+      setMobileOpen(true);
+    } else {
+      setShowSearch((prev) => !prev);
+    }
   };
 
   const handleClearMobile = () => {

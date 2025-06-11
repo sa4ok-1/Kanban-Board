@@ -1,10 +1,10 @@
 import { OutlinedInput, InputAdornment, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import type { FC } from 'react';
+import type { ChangeEvent } from 'react';
 import type { SearchInputFieldProps } from './type';
 
-const SearchInputField: FC<SearchInputFieldProps> = ({
+const SearchInputField = ({
   searchQuery,
   setSearchQuery,
   onSearch,
@@ -14,8 +14,8 @@ const SearchInputField: FC<SearchInputFieldProps> = ({
   onClear,
   onBlur,
   placeholder,
-}) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+}: SearchInputFieldProps) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
     onSearch(query);

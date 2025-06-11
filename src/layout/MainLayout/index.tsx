@@ -1,13 +1,22 @@
 import { Outlet } from 'react-router-dom';
 import { Box } from '@mui/material';
+import { useState } from 'react';
 import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
 
 export default function MainLayout() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
-      <Sidebar />
-
+      <Sidebar
+        mobileOpen={mobileOpen}
+        handleDrawerToggle={handleDrawerToggle}
+      />
       <Box
         component='main'
         sx={{
@@ -32,9 +41,8 @@ export default function MainLayout() {
             top: 0,
           }}
         >
-          <Header />
+          <Header onMenuClick={handleDrawerToggle} />
         </Box>
-
         <Outlet />
       </Box>
     </Box>

@@ -27,7 +27,8 @@
     },
     "buttons": {
       "cancel": "Cancel",
-      "create": "Create"
+      "create": "Create",
+      "close" :"Close"
     }
   }
 }

@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type FC } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -15,11 +15,11 @@ import { initialValues } from './type';
 import { useTranslation } from 'react-i18next';
 import type { CreateTaskDialogProps } from './type';
 
-const CreateTaskDialog: FC<CreateTaskDialogProps> = ({
+const CreateTaskDialog = ({
   open,
   onClose,
   onSubmit,
-}) => {
+}: CreateTaskDialogProps) => {
   const { t } = useTranslation('task_board_page');
   const [formData, setFormData] = useState<CreateTask>(initialValues);
 

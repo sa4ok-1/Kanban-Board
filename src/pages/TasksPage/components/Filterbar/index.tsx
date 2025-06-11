@@ -16,14 +16,9 @@ import { TaskStatus } from 'types/task';
 import SearchInput from '../SearchInput';
 import { TaskSortOption } from 'types/task';
 import type { FilterProps } from './type';
-import {
-  filterBarStyles,
-  titleStyles,
-  selectStyles,
-  sortSelectStyles,
-  toggleButtonGroupStyles,
-  searchBoxStyles,
-} from './styles';
+import { useTheme } from '@mui/material/styles';
+
+import { filterBarStyles } from './styles';
 
 export default function FilterBar({
   statusFilter,
@@ -37,73 +32,87 @@ export default function FilterBar({
   setSortOption,
 }: FilterProps) {
   const { t } = useTranslation('task_board_page');
+  const theme = useTheme();
 
   const handleSortChange = (e: SelectChangeEvent<TaskSortOption>) => {
     setSortOption(e.target.value as TaskSortOption);
   };
 
   return (
-    <Stack
-      direction={{ xs: 'column', sm: 'row' }}
-      spacing={{ xs: 2, sm: 2 }}
-      alignItems={{ xs: 'flex-start', sm: 'center' }}
-      flexWrap='wrap'
-      sx={filterBarStyles}
-    >
-      <Typography variant='h6' sx={titleStyles}>
-        <FilterListIcon fontSize='small' sx={{ color: '#8b5cf6' }} />
-        {t('filter')}:
-      </Typography>
-
-      <Select
-        value={statusFilter}
-        onChange={(e) => setStatusFilter(e.target.value)}
-        size='small'
-        sx={selectStyles}
+    <Stack sx={filterBarStyles.container}>
+      <Stack
+        sx={filterBarStyles.flexGrowStack}
+        direction='row'
+        alignItems='center'
+        spacing={1}
       >
-        <MenuItem value='All'>{t('all')}</MenuItem>
-        {Object.values(TaskStatus).map((status) => (
-          <MenuItem key={status} value={status}>
-            {t(`status.${status}`)}
-          </MenuItem>
-        ))}
-      </Select>
+        <Typography
+          variant='h6'
+          fontWeight='bold'
+          sx={filterBarStyles.headerStack(theme)}
+        >
+          <FilterListIcon fontSize='small' />
+          {t('filter')}:
+        </Typography>
 
-      <Select
-        value={sortOption}
-        onChange={handleSortChange}
-        size='small'
-        sx={sortSelectStyles}
+        <Select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          size='small'
+          sx={filterBarStyles.select}
+        >
+          <MenuItem value='All'>{t('all')}</MenuItem>
+          {Object.values(TaskStatus).map((status) => (
+            <MenuItem key={status} value={status}>
+              {t(`status.${status}`)}
+            </MenuItem>
+          ))}
+        </Select>
+
+        <Select
+          value={sortOption}
+          onChange={handleSortChange}
+          size='small'
+          sx={filterBarStyles.sortSelect}
+        >
+          {Object.values(TaskSortOption).map((option) => (
+            <MenuItem key={option} value={option}>
+              {t(`sortOptions.${option}`)}
+            </MenuItem>
+          ))}
+        </Select>
+      </Stack>
+
+      <Stack
+        direction='row'
+        spacing={1}
+        alignItems='center'
+        flexWrap='wrap'
+        sx={{ mt: { xs: 2, sm: 0 } }}
       >
-        {Object.values(TaskSortOption).map((option) => (
-          <MenuItem key={option} value={option}>
-            {t(`sortOptions.${option}`)}
-          </MenuItem>
-        ))}
-      </Select>
+        <ToggleButtonGroup
+          value={viewMode}
+          exclusive
+          onChange={(_, val) => val && setViewMode(val)}
+          size='small'
+          sx={filterBarStyles.toggleButtonGroup(theme)}
+        >
+          <ToggleButton value='list'>
+            <ViewListIcon />
+          </ToggleButton>
+          <ToggleButton value='grid'>
+            <ViewModuleIcon />
+          </ToggleButton>
+        </ToggleButtonGroup>
 
-      <ToggleButtonGroup
-        value={viewMode}
-        exclusive
-        onChange={(_, val) => val && setViewMode(val)}
-        size='small'
-        sx={toggleButtonGroupStyles}
-      >
-        <ToggleButton value='list'>
-          <ViewListIcon />
-        </ToggleButton>
-        <ToggleButton value='grid'>
-          <ViewModuleIcon />
-        </ToggleButton>
-      </ToggleButtonGroup>
-
-      <Box sx={searchBoxStyles}>
-        <SearchInput
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          onSearch={onSearch}
-        />
-      </Box>
+        <Box sx={filterBarStyles.searchBox}>
+          <SearchInput
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            onSearch={onSearch}
+          />
+        </Box>
+      </Stack>
     </Stack>
   );
 }

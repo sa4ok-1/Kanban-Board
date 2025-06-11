@@ -49,19 +49,6 @@ export default function UserMenu() {
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        slotProps={{
-          paper: {
-            sx: {
-              bgcolor: '#f5f5f5',
-              '& .MuiMenuItem-root': {
-                color: 'darkblue',
-                '&:hover': {
-                  bgcolor: 'lightblue',
-                },
-              },
-            },
-          },
-        }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >

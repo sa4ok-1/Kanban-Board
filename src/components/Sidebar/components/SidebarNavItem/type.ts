@@ -1,8 +1,8 @@
-import type { ComponentType } from 'react';
+import type { SvgIconComponent } from '@mui/icons-material';
 
 export interface NavItemProps {
   to: string;
   labelKey: string;
-  icon: ComponentType<any>;
+  icon: SvgIconComponent;
   open: boolean;
 }
