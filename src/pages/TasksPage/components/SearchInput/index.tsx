@@ -1,21 +1,29 @@
-import { IconButton, useMediaQuery, type Theme } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import { useRef, useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import DesktopSearch from './DesktopSearch';
-import MobileSearchDialog from './MobileSearchDialog';
+import {
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Button,
+  IconButton,
+  Slide,
+  Tooltip,
+  useMediaQuery,
+  type Theme,
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import SearchInputField from './SearchInputField';
-import type { SeacrhInputProps } from './type';
+import type { SearchInputProps } from './type';
 
 export default function SearchInput({
   searchQuery,
   setSearchQuery,
   onSearch,
-}: SeacrhInputProps) {
+}: SearchInputProps) {
   const { t } = useTranslation('task_board_page');
   const [showSearch, setShowSearch] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const searchInputRef = useRef<HTMLInputElement>(null);
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm'),
   );
@@ -28,9 +36,25 @@ export default function SearchInput({
     }
   };
 
-  const handleClearMobile = () => {
-    setMobileOpen(false);
-  };
+  const handleMobileClose = () => setMobileOpen(false);
+
+  const handleDesktopBlur = useCallback(
+    (e: React.FocusEvent<HTMLInputElement>) => {
+      const relatedTarget = e.relatedTarget as HTMLElement | null;
+
+      if (
+        relatedTarget &&
+        e.currentTarget.parentElement?.contains(relatedTarget)
+      ) {
+        return;
+      }
+
+      if (searchQuery === '') {
+        setShowSearch(false);
+      }
+    },
+    [searchQuery],
+  );
 
   return (
     <>
@@ -39,38 +63,51 @@ export default function SearchInput({
           <IconButton onClick={toggleSearch} aria-label='search'>
             <SearchIcon />
           </IconButton>
-          <MobileSearchDialog
-            open={mobileOpen}
-            onClose={() => setMobileOpen(false)}
-          >
-            <SearchInputField
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              onSearch={onSearch}
-              inputRef={searchInputRef}
-              isMobile={true}
-              autoFocus
-              onClear={handleClearMobile}
-              placeholder={t('search_tasks...')}
-            />
-          </MobileSearchDialog>
+          <Dialog open={mobileOpen} onClose={handleMobileClose} fullWidth>
+            <DialogContent>
+              <SearchInputField
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                onSearch={onSearch}
+                autoFocus
+                onClear={handleMobileClose}
+                placeholder={t('search_tasks...')}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleMobileClose}>{t('close')}</Button>
+            </DialogActions>
+          </Dialog>
         </>
       ) : (
-        <DesktopSearch
-          showSearch={showSearch}
-          toggleSearch={toggleSearch}
-          tooltipTitle={t('search')}
+        <Box
+          sx={{
+            width: showSearch ? 240 : 40,
+            transition: 'width 0.4s ease',
+            overflow: 'hidden',
+          }}
         >
-          <SearchInputField
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            onSearch={onSearch}
-            inputRef={searchInputRef}
-            isMobile={false}
-            onBlur={() => searchQuery === '' && setShowSearch(false)}
-            placeholder={t('search_tasks...')}
-          />
-        </DesktopSearch>
+          {showSearch ? (
+            <Slide direction='right' in={showSearch} mountOnEnter unmountOnExit>
+              <Box>
+                <SearchInputField
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  onSearch={onSearch}
+                  onClear={() => setShowSearch(false)}
+                  onBlur={handleDesktopBlur}
+                  placeholder={t('search_tasks...')}
+                />
+              </Box>
+            </Slide>
+          ) : (
+            <Tooltip title={t('search')} enterDelay={1000}>
+              <IconButton onClick={toggleSearch} aria-label='search'>
+                <SearchIcon />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Box>
       )}
     </>
   );

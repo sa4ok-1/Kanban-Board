@@ -9,7 +9,6 @@ const SearchInputField = ({
   setSearchQuery,
   onSearch,
   inputRef,
-  isMobile,
   autoFocus = false,
   onClear,
   onBlur,
@@ -35,7 +34,7 @@ const SearchInputField = ({
       placeholder={placeholder}
       value={searchQuery}
       onChange={handleChange}
-      onBlur={!isMobile ? onBlur : undefined}
+      onBlur={onBlur}
       size='small'
       startAdornment={
         <InputAdornment position='start'>
@@ -43,15 +42,14 @@ const SearchInputField = ({
         </InputAdornment>
       }
       endAdornment={
-        searchQuery && (
+        searchQuery ? (
           <InputAdornment position='end'>
             <IconButton onClick={handleClear} edge='end' size='small'>
               <HighlightOffIcon fontSize='small' />
             </IconButton>
           </InputAdornment>
-        )
+        ) : null
       }
-      sx={{ width: isMobile ? '100%' : 210 }}
     />
   );
 };
