@@ -1,0 +1,40 @@
+import { PaletteColor } from "@mui/material";
+
+declare module "@mui/material/styles" {
+  interface Palette {
+    custom?: PaletteColor;
+  }
+
+  interface PaletteOptions {
+    custom?: PaletteColor;
+  }
+}
+
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    custom: true;
+  }
+}
+
+declare module "@mui/material/SvgIcon" {
+  interface SvgIconPropsColorOverrides {
+    custom: true;
+  }
+}
+
+declare module "@mui/material/styles" {
+  interface Palette {
+    status: {
+      todo: string;
+      inProgress: string;
+      done: string;
+    };
+  }
+  interface PaletteOptions {
+    status?: {
+      todo?: string;
+      inProgress?: string;
+      done?: string;
+    };
+  }
+}

@@ -1,14 +1,21 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import "./index.css";
-import App from "./App.tsx";
-import './i18n/i18n.ts';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import './index.css';
+import './config/i18n.ts';
+import { AppRouter } from './routes';
+import theme from './infrastructure/MainTheme/theme.ts';
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById('root')!).render(
+
+  
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppRouter />
+      </ThemeProvider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

@@ -1,0 +1,37 @@
+{
+  "task_dialog": {
+    "edit_task": "Редагувати завдання",
+    "task_details": "Деталі завдання",
+    "fields": {
+      "title": "Назва",
+      "description": "Опис",
+      "status": "Статус",
+      "priority": "Пріоритет",
+      "author": "Автор",
+      "executor": "Виконавець",
+      "privacy": "Приватність"
+    },
+    "status_options": {
+      "todo": "До виконання",
+      "in_progress": "В процесі",
+      "done": "Виконано"
+    },
+    "priority_options": {
+      "low": "Низький",
+      "medium": "Середній",
+      "high": "Високий"
+    },
+    "privacy_options": {
+      "public": "Публічний",
+      "private": "Приватний"
+    },
+    "buttons": {
+      "cancel": "Скасувати",
+      "close": "Закрити",
+      "save": "Зберегти",
+      "complete": "Завершити"
+    },
+    "unknown": "Невідомо",
+    "unassigned": "Не призначено"
+  }
+}

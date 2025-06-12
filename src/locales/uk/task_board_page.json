@@ -1,0 +1,34 @@
+{
+  "all": "Усі",
+  "status": {
+    "To Do": "До виконання",
+    "In Progress": "В процесі",
+    "Done": "Виконано"
+  },
+  "search_tasks...": "Пошук завдань...",
+  "sortOptions": {
+    "byName": "За назвою (А-Я)",
+    "completedFirst": "Виконані першими",
+    "pendingFirst": "Очікують першими"
+  },
+  "search": "Пошук",
+  "close": "Закрити",
+  "export": "Експорт",
+  "add_task": "Додати завдання",
+  "filter": "Фільтр",
+  "Tasks Board": "Дошка завдань",
+  "AddTaskModal": {
+    "title": "Додати нове завдання",
+    "fields": {
+      "title": "Назва",
+      "description": "Опис",
+      "status": "Статус завдання",
+      "priority": "Пріоритет завдання"
+    },
+    "buttons": {
+      "cancel": "Скасувати",
+      "create": "Створити",
+      "close" :"Закрити"
+    }
+  }
+}

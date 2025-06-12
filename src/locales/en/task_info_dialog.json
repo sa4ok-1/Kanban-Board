@@ -1,0 +1,39 @@
+{
+  "task_dialog": {
+    "edit_task": "Edit Task",
+    "task_details": "Task Details",
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "status": "Status",
+      "priority": "Priority",
+      "author": "Author",
+      "executor": "Executor",
+      "privacy": "Privacy"
+    },
+   "status_options": {
+      "to_do": "To Do",
+      "in_progress": "In Progress",
+      "done": "Done"
+    },
+    "priority_options": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    },
+    "privacy_options": {
+      "public": "Public",
+      "private": "Private",
+      "custom": "Custom"
+    }
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "complete": "Complete"
+  },
+  "unknown": "Unknown",
+  "unassigned": "Unassigned"
+}
