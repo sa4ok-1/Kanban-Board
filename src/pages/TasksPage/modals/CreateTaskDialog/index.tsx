@@ -10,7 +10,7 @@ import {
   Stack,
 } from '@mui/material';
 import { nanoid } from 'nanoid';
-import { type CreateTask, TaskStatus, TaskPriority } from 'types/task';
+import { type Task, TaskStatus, TaskPriority } from 'types/task';
 import { initialValues } from './type';
 import { useTranslation } from 'react-i18next';
 import type { CreateTaskDialogProps } from './type';
@@ -21,7 +21,7 @@ const CreateTaskDialog = ({
   onSubmit,
 }: CreateTaskDialogProps) => {
   const { t } = useTranslation('task_board_page');
-  const [formData, setFormData] = useState<CreateTask>(initialValues);
+  const [formData, setFormData] = useState<Task>(initialValues);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,

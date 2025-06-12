@@ -1,7 +1,7 @@
 import { useState, type MouseEvent } from 'react';
 import { Card, CardContent, Typography, IconButton } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import type { CreateTask } from 'types/task';
+import type { Task } from 'types/task';
 import type { TaskCardProps } from './type';
 import TaskInfoDialog from '../../modals/TaskInfoDialog';
 import DeleteConfirmDialog from '../../modals/DeleteTask';
@@ -56,7 +56,7 @@ export default function TaskCard({
     setEditMode(false);
   };
 
-  const handleSave = (updatedTask: CreateTask) => {
+  const handleSave = (updatedTask: Task) => {
     onEdit(updatedTask);
     handleDialogClose();
   };
@@ -93,20 +93,35 @@ export default function TaskCard({
         </IconButton>
 
         <CardContent>
-          <Typography variant='h6' fontWeight='bold'>
+          <Typography
+            variant='h6'
+            fontWeight='bold'
+            sx={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
             {task.title}
           </Typography>
           <Typography
             variant='body2'
-            sx={{ fontSize: '18px', color: 'text.secondary' }}
+            sx={{
+              fontSize: '18px',
+              color: 'text.secondary',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
           >
-            Description: {t(`status.${task.description}`)}
+            {t('fields.description')}: {task.description}
           </Typography>
+
           <Typography
             variant='body2'
             sx={{ fontSize: '18px', color: 'text.secondary' }}
           >
-            Status: {t(`status.${task.status}`)}
+            {t('fields.status')}: {t(`status.${task.status}`)}
           </Typography>
         </CardContent>
       </Card>

@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { useState, useEffect, type ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { type CreateTask } from 'types/task';
+import { type Task } from 'types/task';
 import { useTranslation } from 'react-i18next';
 import TaskEditFields from '../TaskEditFields';
 import TaskViewFields from '../TaskViewFields';
@@ -23,11 +23,11 @@ export default function TaskInfoDialog({
   onSave,
 }: TaskDialogProps) {
   const navigate = useNavigate();
-  const { t } = useTranslation('task_info_dialog');
+  const { t } = useTranslation('task_dialog');
   const theme = useTheme();
   const isDarkMode = theme.palette.mode === 'dark';
 
-  const [editedTask, setEditedTask] = useState<CreateTask>(task);
+  const [editedTask, setEditedTask] = useState<Task>(task);
 
   useEffect(() => {
     setEditedTask(task);
@@ -56,9 +56,7 @@ export default function TaskInfoDialog({
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth='sm' fullWidth>
-      <DialogTitle>
-        {editMode ? t('task_dialog.edit_task') : t('task_dialog.task_details')}
-      </DialogTitle>
+      <DialogTitle>{editMode ? t('edit_task') : t('task_details')}</DialogTitle>
 
       <DialogContent dividers>
         {editMode ? (
@@ -88,19 +86,15 @@ export default function TaskInfoDialog({
         }}
       >
         <Button color='error' onClick={onClose}>
-          {editMode
-            ? t('task_dialog.buttons.cancel')
-            : t('task_dialog.buttons.close')}
+          {editMode ? t('buttons.cancel') : t('buttons.close')}
         </Button>
 
         {editMode ? (
           <Button onClick={handleSaveClick} variant='contained'>
-            {t('task_dialog.buttons.save')}
+            {t('buttons.save')}
           </Button>
         ) : (
-          <Button onClick={handleCompleted}>
-            {t('task_dialog.buttons.complete')}
-          </Button>
+          <Button onClick={handleCompleted}>{t('buttons.complete')}</Button>
         )}
       </DialogActions>
     </Dialog>
