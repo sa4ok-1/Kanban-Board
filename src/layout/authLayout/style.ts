@@ -8,7 +8,9 @@ export const authLayoutStyles: SxProps<Theme> = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  textAlign: "left"
 };
+
 
 export const containerStyles: SxProps<Theme> = {
   maxWidth: 'sm',
