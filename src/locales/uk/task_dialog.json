@@ -2,13 +2,13 @@
   "edit_task": "Редагувати завдання",
   "task_details": "Деталі завдання",
   "fields": {
-    "title": "Назва",
+    "title": "Заголовок",
     "description": "Опис",
-    "status": "Статус",
-    "priority": "Пріоритет",
-    "author": "Автор",
-    "executor": "Виконавець",
-    "privacy": "Приватність"
+    "completed": "Виконано",
+    "completed_true": "Так",
+    "completed_false": "Ні",
+    "createdAt": "Створено",
+    "updatedAt": "Оновлено"
   },
   "status_options": {
     "to_do": "До виконання",

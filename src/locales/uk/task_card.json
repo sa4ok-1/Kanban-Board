@@ -1,0 +1,11 @@
+{
+  "fields": {
+    "title": "Назва",
+    "description": "Опис",
+    "completed": "Завершено",
+    "completed_true": "Так",
+    "completed_false": "Ні",
+    "createdAt": "Створено",
+    "updatedAt": "Оновлено"
+  }
+}

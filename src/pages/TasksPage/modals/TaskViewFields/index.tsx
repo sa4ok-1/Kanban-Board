@@ -7,27 +7,29 @@ export default function TaskViewFields({ task }: TaskViewFieldsProps) {
 
   return (
     <Box display='flex' flexDirection='column' gap={2}>
-      <Typography>
+      <Typography variant='body1'>
         <strong>{t('fields.title')}:</strong> {task.title}
       </Typography>
-      <Typography>
+
+      <Typography variant='body1'>
         <strong>{t('fields.description')}:</strong> {task.description}
       </Typography>
-      <Typography>
-        <strong>{t('fields.status')}:</strong> {task.status}
+
+      <Typography variant='body1'>
+        <strong>{t('fields.completed')}:</strong>{' '}
+        {task.completed
+          ? t('fields.completed_true')
+          : t('fields.completed_false')}
       </Typography>
-      <Typography>
-        <strong>{t('fields.priority')}:</strong> {task.priority}
+
+      <Typography variant='body2' color='text.secondary'>
+        <strong>{t('fields.createdAt')}:</strong>{' '}
+        {new Date(task.createdAt).toLocaleString()}
       </Typography>
-      <Typography>
-        <strong>{t('fields.author')}:</strong> {task.author || t('unknown')}
-      </Typography>
-      <Typography>
-        <strong>{t('fields.executor')}:</strong>{' '}
-        {task.executor || t('unassigned')}
-      </Typography>
-      <Typography>
-        <strong>{t('fields.privacy')}:</strong> {task.privacy}
+
+      <Typography variant='body2' color='text.secondary'>
+        <strong>{t('fields.updatedAt')}:</strong>{' '}
+        {new Date(task.updatedAt).toLocaleString()}
       </Typography>
     </Box>
   );

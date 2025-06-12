@@ -1,69 +1,51 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { Box, Stack } from '@mui/material';
-import { type Task, TaskSortOption } from 'types/task';
+import { useFetchTasks } from './hooks/useFetchTasks';
 import CreateTaskDialog from './modals/CreateTaskDialog';
 import HeaderActions from './components/HeaderAction';
 import FilterBar from './components/Filterbar';
 import TaskList from './components/TaskList';
+import type { CreateTaskPayload } from 'api/services/TaskService/types/type';
+import { TaskSortOption, type Task } from 'types/task';
+import { taskService } from 'api/services/TaskService/taskService';
+import { handleError } from 'api/utils/errorHandler';
 
 export default function TasksPage() {
+  const { tasks, setTasks, isLoading } = useFetchTasks();
   const [openModal, setOpenModal] = useState(false);
-  const [tasks, setTasks] = useState<Task[]>([]);
   const [statusFilter, setStatusFilter] = useState('All');
   const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [sortOption, setSortOption] = useState<TaskSortOption>(
-    TaskSortOption.CompletedFirst,
-  );
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOption, setSortOption] = useState(TaskSortOption.CompletedFirst);
 
-  const handleSubmit = (data: Task) => {
-    setTasks((prev) => [...prev, data]);
+  const handleSubmit = async (data: CreateTaskPayload) => {
+    const newTask = await taskService.createTask(data);
+    setTasks((prev) => [...prev, newTask]);
   };
 
-  const handleEditTask = (updatedTask: Task) => {
-    setTasks((prev) =>
-      prev.map((task) => (task.id === updatedTask.id ? updatedTask : task)),
-    );
-  };
-
-  const handleDeleteTask = (taskId: string) => {
-    setTasks((prev) => prev.filter((task) => task.id !== taskId));
-  };
-
-  const filterTasks = (tasks: Task[], filter: string) => {
-    return filter === 'All'
-      ? tasks
-      : tasks.filter((task) => task.status === filter);
-  };
-
-  const searchTasks = (tasks: Task[], query: string) => {
-    if (!query) return tasks;
-    return tasks.filter(
-      (task) =>
-        task.title.toLowerCase().includes(query.toLowerCase()) ||
-        task.description?.toLowerCase().includes(query.toLowerCase()),
-    );
-  };
-
-  const sortTasks = (tasks: Task[], option: TaskSortOption): Task[] => {
-    const tasksCopy = [...tasks];
-    switch (option) {
-      case 'byName':
-        return tasksCopy.sort((a, b) => a.title.localeCompare(b.title));
-      case 'completedFirst':
-        return tasksCopy.sort((a) => (a.status === 'Done' ? -1 : 1));
-      case 'pendingFirst':
-        return tasksCopy.sort((a) => (a.status === 'Done' ? 1 : -1));
-      default:
-        return tasksCopy;
+  const handleEditTask = async (updatedTask: Task) => {
+    try {
+      const updated = await taskService.updateTask(updatedTask.id, {
+        title: updatedTask.title,
+        description: updatedTask.description,
+        completed: updatedTask.completed,
+      });
+      setTasks((prev) =>
+        prev.map((task) => (task.id === updated.id ? updated : task)),
+      );
+    } catch (err) {
+      handleError(err);
     }
   };
 
-  const filteredAndSortedTasks = useMemo(() => {
-    const filtered = filterTasks(tasks, statusFilter);
-    const searched = searchTasks(filtered, searchQuery);
-    return sortTasks(searched, sortOption);
-  }, [tasks, statusFilter, searchQuery, sortOption]);
+  const handleDeleteTask = async (taskId: string) => {
+    try {
+      await taskService.deleteTask(taskId);
+      setTasks((prev) => prev.filter((task) => task.id !== taskId));
+    } catch (err) {
+      handleError(err);
+    }
+  };
 
   return (
     <Box sx={{ width: '100%', p: 1, boxSizing: 'border-box' }}>
@@ -81,7 +63,8 @@ export default function TasksPage() {
           setSortOption={setSortOption}
         />
         <TaskList
-          tasks={filteredAndSortedTasks}
+          isLoading={isLoading}
+          tasks={tasks}
           viewMode={viewMode}
           onEditTask={handleEditTask}
           onDeleteTask={handleDeleteTask}

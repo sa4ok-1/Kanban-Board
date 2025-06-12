@@ -1,12 +1,28 @@
+import type { Task } from 'types/task';
 import { httpClient } from '../httpClient';
-import { handleError } from '../../utils/errorHandler';
+import type {
+  CreateTaskPayload,
+  UpdateTaskPayload,
+  TaskResponse,
+} from './types/type';
 
-export async function getTasks(signal?: AbortSignal) {
-  try {
-    const response = await httpClient.get('/task', { signal });
+export const taskService = {
+  async getTasks(): Promise<Task[]> {
+    const response = await httpClient.get<TaskResponse>('/task');
+    return response.data.data;
+  },
+
+  async createTask(payload: CreateTaskPayload): Promise<Task> {
+    const response = await httpClient.post<Task>('/task', payload);
     return response.data;
-  } catch (error) {
-    handleError(error);
-    throw error;
-  }
-}
+  },
+
+  async deleteTask(taskId: string): Promise<void> {
+    await httpClient.delete(`/task/${taskId}`);
+  },
+
+  async updateTask(taskId: string, payload: UpdateTaskPayload): Promise<Task> {
+    const response = await httpClient.patch<Task>(`/task/${taskId}`, payload);
+    return response.data;
+  },
+};

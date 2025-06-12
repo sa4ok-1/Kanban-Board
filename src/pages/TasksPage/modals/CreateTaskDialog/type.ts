@@ -1,18 +1,13 @@
-import { type Task, TaskStatus, TaskPrivacy, TaskPriority } from 'types/task';
+import type { CreateTaskPayload } from 'api/services/TaskService/types/type';
 
 export interface CreateTaskDialogProps {
   open: boolean;
   onClose: () => void;
-  onSubmit: (data: Task) => void;
+  onSubmit: (data: CreateTaskPayload) => void;
 }
 
-export const initialValues: Task = {
-  id: '',
+export const initialValues: CreateTaskPayload = {
   title: '',
   description: '',
-  status: TaskStatus.TODO,
-  priority: TaskPriority.MEDIUM,
-  author: '',
-  executor: '',
-  privacy: TaskPrivacy.PUBLIC,
+  completed: false,
 };

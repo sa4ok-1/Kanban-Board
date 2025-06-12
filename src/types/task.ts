@@ -3,7 +3,6 @@ export enum TaskStatus {
   IN_PROGRESS = 'In Progress',
   DONE = 'Done',
 }
-
 export enum TaskPriority {
   LOW = 'Low',
   MEDIUM = 'Medium',
@@ -21,11 +20,9 @@ export interface Task {
   id: string;
   title: string;
   description: string;
-  status: TaskStatus;
-  priority: TaskPriority;
-  author: string;
-  executor: string;
-  privacy: TaskPrivacy;
+  completed: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export enum TaskSortOption {
