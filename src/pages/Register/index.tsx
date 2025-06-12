@@ -5,7 +5,7 @@ import type { StepOneData } from './steps/StepOne/type';
 import type { StepTwoData } from './steps/StepTwo/type';
 import { ThemeProvider, CssBaseline, Container, Paper } from '@mui/material';
 import { darkTheme } from 'infrastructure/LoginRegisterTheme';
-import AuthLayout from 'layout/AuthLayout';
+import AuthLayout from 'layout/AuthentificationLayout';
 
 export default function RegisterPage() {
   const [step, setStep] = useState(1);

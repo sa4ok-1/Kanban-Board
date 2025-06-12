@@ -8,7 +8,7 @@ import type { LoginFormData } from './type';
 import { loginSchema } from './LoginSchemas';
 import LoginForm from './LoginForm';
 import { Container, CssBaseline } from '@mui/material';
-import AuthLayout from 'layout/AuthLayout';
+import AuthLayout from 'layout/AuthentificationLayout';
 
 export default function Login() {
   const navigate = useNavigate();
