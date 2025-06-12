@@ -1,0 +1,11 @@
+{
+  "fields": {
+    "title": "Title",
+    "description": "Description",
+    "completed": "Completed",
+    "completed_true": "Yes",
+    "completed_false": "No",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
+  }
+}

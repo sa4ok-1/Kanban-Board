@@ -1,15 +1,24 @@
-import { Paper, CircularProgress, Box } from '@mui/material';
+import { Paper } from '@mui/material';
 import TaskCard from '../TaskCard';
+import EmptyState from '../EmptyState';
+import TaskListSkeleton from './TaskSkeleton';
 import type { TaskListProps } from './type';
 
 export default function TaskList({
   tasks,
-  viewMode,
-  hasMore = true,
-  loading = false,
+  viewMode = 'list',
   onEditTask,
   onDeleteTask,
+  isLoading = false,
 }: TaskListProps) {
+  if (isLoading) {
+    return <TaskListSkeleton viewMode={viewMode} />;
+  }
+
+  if (tasks.length === 0) {
+    return <EmptyState />;
+  }
+
   return (
     <Paper
       sx={{
@@ -25,6 +34,7 @@ export default function TaskList({
             : undefined,
         gridAutoRows: viewMode === 'grid' ? 'minmax(150px, auto)' : undefined,
         p: 2,
+        mb: 2,
       }}
     >
       {tasks.map((task) => (
@@ -36,19 +46,6 @@ export default function TaskList({
           onDelete={onDeleteTask ?? (() => {})}
         />
       ))}
-
-      {hasMore && (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            py: 3,
-            gridColumn: viewMode === 'grid' ? '1 / -1' : undefined,
-          }}
-        >
-          {loading && <CircularProgress />}
-        </Box>
-      )}
     </Paper>
   );
 }

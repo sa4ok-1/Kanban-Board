@@ -1,11 +1,10 @@
 import { useState, type MouseEvent } from 'react';
 import { Card, CardContent, Typography, IconButton } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import type { CreateTask } from 'types/task';
+import type { Task } from 'types/task';
 import type { TaskCardProps } from './type';
 import TaskInfoDialog from '../../modals/TaskInfoDialog';
 import DeleteConfirmDialog from '../../modals/DeleteTask';
-import { STATUS_CONFIG } from '../../config/ConfigColor';
 import TaskMenu from './TaskCardMenu';
 import { useTranslation } from 'react-i18next';
 
@@ -19,8 +18,7 @@ export default function TaskCard({
   const [editMode, setEditMode] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  const statusConfig = STATUS_CONFIG[task.status];
-  const { t } = useTranslation('task_board_page');
+  const { t } = useTranslation('task_card');
 
   const handleSettingsClick = (event: MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -56,8 +54,8 @@ export default function TaskCard({
     setEditMode(false);
   };
 
-  const handleSave = (updatedTask: CreateTask) => {
-    onEdit(updatedTask);
+  const handleSave = async (updatedTask: Task) => {
+    await onEdit(updatedTask);
     handleDialogClose();
   };
 
@@ -70,8 +68,6 @@ export default function TaskCard({
           height: viewMode === 'list' ? 'auto' : '100%',
           minHeight: '150px',
           border: '1px solid black',
-          borderLeft: (theme) =>
-            `4px solid ${theme.palette.status[statusConfig.colorKey]}`,
           cursor: 'pointer',
           position: 'relative',
           paddingTop: '0.5rem',
@@ -93,20 +89,43 @@ export default function TaskCard({
         </IconButton>
 
         <CardContent>
-          <Typography variant='h6' fontWeight='bold'>
+          <Typography
+            variant='h6'
+            fontWeight='bold'
+            sx={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
             {task.title}
           </Typography>
           <Typography
             variant='body2'
-            sx={{ fontSize: '18px', color: 'text.secondary' }}
+            sx={{
+              fontSize: '18px',
+              color: 'text.secondary',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
           >
-            Description: {t(`status.${task.description}`)}
+            {t('fields.description')}: {task.description}
           </Typography>
           <Typography
             variant='body2'
-            sx={{ fontSize: '18px', color: 'text.secondary' }}
+            sx={{
+              fontSize: '18px',
+              color: 'text.secondary',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
           >
-            Status: {t(`status.${task.status}`)}
+            {t('fields.completed')}:{' '}
+            {task.completed
+              ? t('fields.completed_true')
+              : t('fields.completed_false')}
           </Typography>
         </CardContent>
       </Card>
