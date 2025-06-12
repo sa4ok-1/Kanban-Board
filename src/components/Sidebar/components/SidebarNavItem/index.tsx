@@ -2,20 +2,7 @@ import { ListItem, ListItemButton, ListItemText, Tooltip } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { NavItemProps } from './type';
-
-const navItemStyles = (open: boolean) => ({
-  justifyContent: open ? 'initial' : 'center',
-  px: 2,
-  color: 'text.secondary',
-});
-
-const iconStyles = (open: boolean) => ({
-  color: 'primary.main',
-  minWidth: 0,
-  mr: open ? 2 : 'auto',
-  justifyContent: 'center',
-  fontSize: '2rem',
-});
+import { navItemStyles, iconStyles } from './styles';
 
 export default function NavItem({
   to,
