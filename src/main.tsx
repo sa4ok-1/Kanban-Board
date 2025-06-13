@@ -6,14 +6,14 @@ import './index.css';
 import './config/i18n.ts';
 import { AppRouter } from './routes';
 import theme from './infrastructure/MainTheme/theme.ts';
+import { Toaster } from 'sonner';
 
 createRoot(document.getElementById('root')!).render(
-
-  
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <Toaster position='top-center' richColors />
         <AppRouter />
       </ThemeProvider>
     </BrowserRouter>

@@ -3,33 +3,33 @@ import { useTranslation } from 'react-i18next';
 import type { TaskViewFieldsProps } from './type';
 
 export default function TaskViewFields({ task }: TaskViewFieldsProps) {
-  const { t } = useTranslation('task_info_dialog');
+  const { t } = useTranslation('task_dialog');
 
   return (
     <Box display='flex' flexDirection='column' gap={2}>
-      <Typography>
-        <strong>{t('task_dialog.fields.title')}:</strong> {task.title}
+      <Typography variant='body1'>
+        <strong>{t('fields.title')}:</strong> {task.title}
       </Typography>
-      <Typography>
-        <strong>{t('task_dialog.fields.description')}:</strong>{' '}
-        {task.description}
+
+      <Typography variant='body1'>
+        <strong>{t('fields.description')}:</strong> {task.description}
       </Typography>
-      <Typography>
-        <strong>{t('task_dialog.fields.status')}:</strong> {task.status}
+
+      <Typography variant='body1'>
+        <strong>{t('fields.completed')}:</strong>{' '}
+        {task.completed
+          ? t('fields.completed_true')
+          : t('fields.completed_false')}
       </Typography>
-      <Typography>
-        <strong>{t('task_dialog.fields.priority')}:</strong> {task.priority}
+
+      <Typography variant='body2' color='text.secondary'>
+        <strong>{t('fields.createdAt')}:</strong>{' '}
+        {new Date(task.createdAt).toLocaleString()}
       </Typography>
-      <Typography>
-        <strong>{t('task_dialog.fields.author')}:</strong>{' '}
-        {task.author || t('task_dialog.unknown')}
-      </Typography>
-      <Typography>
-        <strong>{t('task_dialog.fields.executor')}:</strong>{' '}
-        {task.executor || t('task_dialog.unassigned')}
-      </Typography>
-      <Typography>
-        <strong>{t('task_dialog.fields.privacy')}:</strong> {task.privacy}
+
+      <Typography variant='body2' color='text.secondary'>
+        <strong>{t('fields.updatedAt')}:</strong>{' '}
+        {new Date(task.updatedAt).toLocaleString()}
       </Typography>
     </Box>
   );

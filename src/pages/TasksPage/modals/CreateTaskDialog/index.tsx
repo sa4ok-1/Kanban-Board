@@ -6,22 +6,17 @@ import {
   DialogActions,
   Button,
   TextField,
-  MenuItem,
   Stack,
 } from '@mui/material';
-import { nanoid } from 'nanoid';
-import { type CreateTask, TaskStatus, TaskPriority } from 'types/task';
-import { initialValues } from './type';
-import { useTranslation } from 'react-i18next';
-import type { CreateTaskDialogProps } from './type';
 
-const CreateTaskDialog = ({
+import { type CreateTaskDialogProps, initialValues } from './type';
+
+export default function CreateTaskDialog({
   open,
   onClose,
   onSubmit,
-}: CreateTaskDialogProps) => {
-  const { t } = useTranslation('task_board_page');
-  const [formData, setFormData] = useState<CreateTask>(initialValues);
+}: CreateTaskDialogProps) {
+  const [formData, setFormData] = useState(initialValues);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -32,76 +27,40 @@ const CreateTaskDialog = ({
 
   const handleSubmit = () => {
     if (!formData.title.trim() || !formData.description.trim()) return;
-    const newTask = { ...formData, id: nanoid() };
-    onSubmit(newTask);
+    onSubmit(formData);
     setFormData(initialValues);
     onClose();
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth='sm' fullWidth>
-      <DialogTitle>{t('AddTaskModal.title')}</DialogTitle>
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth='sm'>
+      <DialogTitle>Create Task</DialogTitle>
       <DialogContent>
         <Stack spacing={2} mt={1}>
           <TextField
             name='title'
-            label={t('AddTaskModal.fields.title')}
+            label='Title'
             fullWidth
-            multiline
-            rows={3}
             value={formData.title}
             onChange={handleChange}
           />
           <TextField
             name='description'
-            label={t('AddTaskModal.fields.description')}
+            label='Description'
             fullWidth
-            multiline
-            rows={3}
             value={formData.description}
             onChange={handleChange}
           />
-
-          <TextField
-            name='status'
-            label={t('AddTaskModal.fields.status')}
-            select
-            fullWidth
-            value={formData.status}
-            onChange={handleChange}
-          >
-            {Object.values(TaskStatus).map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            name='priority'
-            label={t('AddTaskModal.fields.priority')}
-            select
-            fullWidth
-            value={formData.priority}
-            onChange={handleChange}
-          >
-            {Object.values(TaskPriority).map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
         </Stack>
       </DialogContent>
-      <DialogActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <DialogActions>
         <Button onClick={onClose} color='error'>
-          {t('AddTaskModal.buttons.cancel')}
+          Cancel
         </Button>
         <Button onClick={handleSubmit} variant='contained'>
-          {t('AddTaskModal.buttons.create')}
+          Create
         </Button>
       </DialogActions>
     </Dialog>
   );
-};
-
-export default CreateTaskDialog;
+}

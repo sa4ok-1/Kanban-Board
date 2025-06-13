@@ -16,6 +16,7 @@
   "export": "Export",
   "add_task": "Add Task",
   "filter": "Filter",
+  "sort": "Sort",
   "Tasks Board": "Tasks Board",
   "AddTaskModal": {
     "title": "Add New Task",
@@ -28,7 +29,10 @@
     "buttons": {
       "cancel": "Cancel",
       "create": "Create",
-      "close" :"Close"
+      "close": "Close"
     }
-  }
+  },
+
+  "grid_tooltip": "Grid",
+  "list_tooltip": "List"
 }

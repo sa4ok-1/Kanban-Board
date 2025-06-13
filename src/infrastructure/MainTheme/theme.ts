@@ -183,6 +183,20 @@ const theme = extendTheme({
         }),
       },
     },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          borderRadius: '12px',
+          padding: '10px 20px',
+          fontWeight: 600,
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+          },
+        },
+      },
+    },
   },
 });
 

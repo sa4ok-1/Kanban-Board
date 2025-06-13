@@ -1,78 +1,59 @@
-import { useState, useMemo } from 'react';
 import { Box, Stack } from '@mui/material';
-import { type CreateTask, TaskSortOption } from 'types/task';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import CreateTaskDialog from './modals/CreateTaskDialog';
 import HeaderActions from './components/HeaderAction';
-import FilterBar from './components/Filterbar';
 import TaskList from './components/TaskList';
+import { useTaskActions, useFetchTasks } from './hooks';
+import type { TaskStatus, TaskSortOption } from 'types/task';
+
+const allowedStatuses = ['All', 'todo', 'in-progress', 'done'] as const;
 
 export default function TasksPage() {
-  const [openModal, setOpenModal] = useState(false);
-  const [tasks, setTasks] = useState<CreateTask[]>([]);
-  const [statusFilter, setStatusFilter] = useState('All');
-  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [sortOption, setSortOption] = useState<TaskSortOption>(
-    TaskSortOption.CompletedFirst,
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const statusParam = searchParams.get('status');
+  const initialStatusFilter = allowedStatuses.includes(statusParam as any)
+    ? (statusParam as TaskStatus | 'All')
+    : 'All';
+
+  const initialViewMode = searchParams.get('view') === 'grid' ? 'grid' : 'list';
+
+  const initialSearchQuery = searchParams.get('search') || '';
+
+  const initialSortOption =
+    (searchParams.get('sort') as TaskSortOption) || 'date-created';
+
+  const [statusFilter, setStatusFilter] = useState<TaskStatus | 'All'>(
+    initialStatusFilter,
   );
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>(initialViewMode);
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
+  const [sortOption, setSortOption] =
+    useState<TaskSortOption>(initialSortOption);
+  const [openModal, setOpenModal] = useState(false);
 
-  const handleSubmit = (data: CreateTask) => {
-    setTasks((prev) => [...prev, data]);
-  };
+  const { tasks, setTasks, isLoading, error } = useFetchTasks();
+  const { handleSubmit, handleEditTask, handleDeleteTask } =
+    useTaskActions(setTasks);
 
-  const handleEditTask = (updatedTask: CreateTask) => {
-    setTasks((prev) =>
-      prev.map((task) => (task.id === updatedTask.id ? updatedTask : task)),
-    );
-  };
+  useEffect(() => {
+    const params: Record<string, string> = {};
 
-  const handleDeleteTask = (taskId: string) => {
-    setTasks((prev) => prev.filter((task) => task.id !== taskId));
-  };
+    params.view = viewMode;
+    if (searchQuery) params.search = searchQuery;
+    if (statusFilter !== 'All') params.status = statusFilter;
+    if (sortOption) params.sort = sortOption;
 
-  const filterTasks = (tasks: CreateTask[], filter: string) => {
-    return filter === 'All'
-      ? tasks
-      : tasks.filter((task) => task.status === filter);
-  };
-
-  const searchTasks = (tasks: CreateTask[], query: string) => {
-    if (!query) return tasks;
-    return tasks.filter(
-      (task) =>
-        task.title.toLowerCase().includes(query.toLowerCase()) ||
-        task.description?.toLowerCase().includes(query.toLowerCase()),
-    );
-  };
-
-  const sortTasks = (
-    tasks: CreateTask[],
-    option: TaskSortOption,
-  ): CreateTask[] => {
-    const tasksCopy = [...tasks];
-    switch (option) {
-      case 'byName':
-        return tasksCopy.sort((a, b) => a.title.localeCompare(b.title));
-      case 'completedFirst':
-        return tasksCopy.sort((a) => (a.status === 'Done' ? -1 : 1));
-      case 'pendingFirst':
-        return tasksCopy.sort((a) => (a.status === 'Done' ? 1 : -1));
-      default:
-        return tasksCopy;
-    }
-  };
-
-  const filteredAndSortedTasks = useMemo(() => {
-    const filtered = filterTasks(tasks, statusFilter);
-    const searched = searchTasks(filtered, searchQuery);
-    return sortTasks(searched, sortOption);
-  }, [tasks, statusFilter, searchQuery, sortOption]);
+    setSearchParams(params, { replace: true });
+  }, [viewMode, searchQuery, statusFilter, sortOption, setSearchParams]);
 
   return (
     <Box sx={{ width: '100%', p: 1, boxSizing: 'border-box' }}>
       <Stack spacing={3}>
-        <HeaderActions onAddTask={() => setOpenModal(true)} />
-        <FilterBar
+        <HeaderActions
+          onAddTask={() => setOpenModal(true)}
           statusFilter={statusFilter}
           setStatusFilter={setStatusFilter}
           viewMode={viewMode}
@@ -80,11 +61,13 @@ export default function TasksPage() {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           sortOption={sortOption}
-          onSearch={setSearchQuery}
           setSortOption={setSortOption}
+          onSearch={setSearchQuery}
         />
         <TaskList
-          tasks={filteredAndSortedTasks}
+          isLoading={isLoading}
+          tasks={tasks}
+          error={error}
           viewMode={viewMode}
           onEditTask={handleEditTask}
           onDeleteTask={handleDeleteTask}

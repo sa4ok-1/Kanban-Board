@@ -7,7 +7,6 @@ import type { SearchInputFieldProps } from './type';
 const SearchInputField = ({
   searchQuery,
   setSearchQuery,
-  onSearch,
   inputRef,
   autoFocus = false,
   onClear,
@@ -15,14 +14,11 @@ const SearchInputField = ({
   placeholder,
 }: SearchInputFieldProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    onSearch(query);
+    setSearchQuery(e.target.value);
   };
 
   const handleClear = () => {
     setSearchQuery('');
-    onSearch('');
     onClear?.();
   };
 

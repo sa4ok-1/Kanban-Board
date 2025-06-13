@@ -16,6 +16,7 @@
   "export": "Експорт",
   "add_task": "Додати завдання",
   "filter": "Фільтр",
+  "sort": "Сортувати",
   "Tasks Board": "Дошка завдань",
   "AddTaskModal": {
     "title": "Додати нове завдання",
@@ -28,7 +29,11 @@
     "buttons": {
       "cancel": "Скасувати",
       "create": "Створити",
-      "close" :"Закрити"
+      "close": "Закрити"
     }
-  }
+  },
+
+  "grid_tooltip": "Плиточки",
+  "list_tooltip": "Список"
+  
 }

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, type FocusEvent, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Box,
@@ -39,7 +39,7 @@ export default function SearchInput({
   const handleMobileClose = () => setMobileOpen(false);
 
   const handleDesktopBlur = useCallback(
-    (e: React.FocusEvent<HTMLInputElement>) => {
+    (e: FocusEvent<HTMLInputElement>) => {
       const relatedTarget = e.relatedTarget as HTMLElement | null;
 
       if (
@@ -56,6 +56,16 @@ export default function SearchInput({
     [searchQuery],
   );
 
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      onSearch(searchQuery);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchQuery, onSearch]);
+
   return (
     <>
       {isMobile ? (
@@ -68,7 +78,6 @@ export default function SearchInput({
               <SearchInputField
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
-                onSearch={onSearch}
                 autoFocus
                 onClear={handleMobileClose}
                 placeholder={t('search_tasks...')}
@@ -93,7 +102,6 @@ export default function SearchInput({
                 <SearchInputField
                   searchQuery={searchQuery}
                   setSearchQuery={setSearchQuery}
-                  onSearch={onSearch}
                   onClear={() => setShowSearch(false)}
                   onBlur={handleDesktopBlur}
                   placeholder={t('search_tasks...')}

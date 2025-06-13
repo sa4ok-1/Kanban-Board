@@ -1,4 +1,4 @@
-import type { RefObject, FocusEvent } from 'react';
+import type { Ref, FocusEvent } from 'react';
 
 export interface SearchInputProps {
   searchQuery: string;
@@ -9,10 +9,10 @@ export interface SearchInputProps {
 export interface SearchInputFieldProps {
   searchQuery: string;
   setSearchQuery: (val: string) => void;
-  onSearch: (val: string) => void;
-  inputRef?: RefObject<HTMLInputElement | null>;
+  onSearch?: (query: string) => void;
+  inputRef?: Ref<HTMLInputElement>;
   autoFocus?: boolean;
   onClear?: () => void;
-  placeholder?: string;
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
+  placeholder?: string;
 }

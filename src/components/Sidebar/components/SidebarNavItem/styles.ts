@@ -7,7 +7,7 @@ export const navItemStyles = (open: boolean) => ({
 export const iconStyles = (open: boolean) => ({
   color: 'primary.main',
   minWidth: 0,
-  mr: open ? 2 : 'auto',
+  mr: open ? 2 : 3,
   justifyContent: 'center',
   fontSize: '2rem',
 });

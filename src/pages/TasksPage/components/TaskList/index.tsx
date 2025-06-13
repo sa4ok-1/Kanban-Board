@@ -1,18 +1,38 @@
-import { Paper, CircularProgress, Box } from '@mui/material';
+import { Paper, Box } from '@mui/material';
 import TaskCard from '../TaskCard';
+import EmptyState from '../EmptyState';
+import TaskListSkeleton from './TaskSkeleton';
 import type { TaskListProps } from './type';
 
 export default function TaskList({
   tasks,
-  viewMode,
-  hasMore = true,
-  loading = false,
+  viewMode = 'list',
   onEditTask,
   onDeleteTask,
-}: TaskListProps) {
+  isLoading = false,
+  error,
+}: TaskListProps & { error?: string | null }) {
+  if (isLoading) {
+    return <TaskListSkeleton viewMode={viewMode} />;
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ p: 2, color: 'error.main', textAlign: 'center' }}>
+        Помилка при завантаженні: {error}
+      </Box>
+    );
+  }
+
+  if (!tasks || tasks.length === 0) {
+    return <EmptyState />;
+  }
+
   return (
     <Paper
       sx={{
+        transition: 'all 0.5s ease',
+        height: 'calc(100vh - 150px)',
         overflowY: 'auto',
         boxShadow: 'none',
         flex: 1,
@@ -23,8 +43,11 @@ export default function TaskList({
           viewMode === 'grid'
             ? 'repeat(auto-fill, minmax(250px, 1fr))'
             : undefined,
-        gridAutoRows: viewMode === 'grid' ? 'minmax(150px, auto)' : undefined,
+        gridAutoRows: 'minmax(150px, auto)',
         p: 2,
+        mb: 2,
+        width: '100%',
+        boxSizing: 'border-box',
       }}
     >
       {tasks.map((task) => (
@@ -36,19 +59,6 @@ export default function TaskList({
           onDelete={onDeleteTask ?? (() => {})}
         />
       ))}
-
-      {hasMore && (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            py: 3,
-            gridColumn: viewMode === 'grid' ? '1 / -1' : undefined,
-          }}
-        >
-          {loading && <CircularProgress />}
-        </Box>
-      )}
     </Paper>
   );
 }

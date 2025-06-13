@@ -1,4 +1,4 @@
-import type { Task } from 'pages/TasksPage/components/TaskList/type';
+import type { Task } from 'types/task';
 
 export interface TaskDialogProps {
   open: boolean;
