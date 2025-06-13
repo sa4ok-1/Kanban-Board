@@ -1,7 +1,7 @@
 import type { ChangeEvent } from 'react';
-import type { CreateTask } from 'types/task';
+import type { Task } from 'types/task';
 
 export interface TaskEditFieldsProps {
-  task: CreateTask;
+  task: Task;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }

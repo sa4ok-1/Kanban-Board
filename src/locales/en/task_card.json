@@ -7,5 +7,7 @@
     "completed_false": "No",
     "createdAt": "Created At",
     "updatedAt": "Updated At"
-  }
+  },
+  "edit": "Edit",
+  "delete": "Delete"
 }

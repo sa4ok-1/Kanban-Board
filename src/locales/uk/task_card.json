@@ -7,5 +7,7 @@
     "completed_false": "Ні",
     "createdAt": "Створено",
     "updatedAt": "Оновлено"
-  }
+  },
+  "edit": "Редагувати",
+  "delete": "Видалити"
 }

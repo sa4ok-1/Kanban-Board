@@ -3,12 +3,12 @@ import { useTheme, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 import { navConfig } from './config';
 import { sxStyles } from './styles';
+import type { SidebarProps } from './type';
 import {
   SidebarToggleButton,
   SidebarLogoutButton,
   NavItem,
 } from './components';
-import type { SidebarProps } from './type';
 
 export default function Sidebar({
   mobileOpen,

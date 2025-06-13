@@ -1,57 +1,59 @@
-import { useState } from 'react';
 import { Box, Stack } from '@mui/material';
-import { useFetchTasks } from './hooks/useFetchTasks';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import CreateTaskDialog from './modals/CreateTaskDialog';
 import HeaderActions from './components/HeaderAction';
-import FilterBar from './components/Filterbar';
 import TaskList from './components/TaskList';
-import type { CreateTaskPayload } from 'api/services/TaskService/types/type';
-import { TaskSortOption, type Task } from 'types/task';
-import { taskService } from 'api/services/TaskService/taskService';
-import { handleError } from 'api/utils/errorHandler';
+import { useTaskActions, useFetchTasks } from './hooks';
+import type { TaskStatus, TaskSortOption } from 'types/task';
+
+const allowedStatuses = ['All', 'todo', 'in-progress', 'done'] as const;
 
 export default function TasksPage() {
-  const { tasks, setTasks, isLoading } = useFetchTasks();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const statusParam = searchParams.get('status');
+  const initialStatusFilter = allowedStatuses.includes(statusParam as any)
+    ? (statusParam as TaskStatus | 'All')
+    : 'All';
+
+  const initialViewMode = searchParams.get('view') === 'grid' ? 'grid' : 'list';
+
+  const initialSearchQuery = searchParams.get('search') || '';
+
+  const initialSortOption =
+    (searchParams.get('sort') as TaskSortOption) || 'date-created';
+
+  const [statusFilter, setStatusFilter] = useState<TaskStatus | 'All'>(
+    initialStatusFilter,
+  );
+  const [viewMode, setViewMode] = useState<'list' | 'grid'>(initialViewMode);
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
+  const [sortOption, setSortOption] =
+    useState<TaskSortOption>(initialSortOption);
   const [openModal, setOpenModal] = useState(false);
-  const [statusFilter, setStatusFilter] = useState('All');
-  const [viewMode, setViewMode] = useState<'list' | 'grid'>('list');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortOption, setSortOption] = useState(TaskSortOption.CompletedFirst);
 
-  const handleSubmit = async (data: CreateTaskPayload) => {
-    const newTask = await taskService.createTask(data);
-    setTasks((prev) => [...prev, newTask]);
-  };
+  const { tasks, setTasks, isLoading, error } = useFetchTasks();
+  const { handleSubmit, handleEditTask, handleDeleteTask } =
+    useTaskActions(setTasks);
 
-  const handleEditTask = async (updatedTask: Task) => {
-    try {
-      const updated = await taskService.updateTask(updatedTask.id, {
-        title: updatedTask.title,
-        description: updatedTask.description,
-        completed: updatedTask.completed,
-      });
-      setTasks((prev) =>
-        prev.map((task) => (task.id === updated.id ? updated : task)),
-      );
-    } catch (err) {
-      handleError(err);
-    }
-  };
+  useEffect(() => {
+    const params: Record<string, string> = {};
 
-  const handleDeleteTask = async (taskId: string) => {
-    try {
-      await taskService.deleteTask(taskId);
-      setTasks((prev) => prev.filter((task) => task.id !== taskId));
-    } catch (err) {
-      handleError(err);
-    }
-  };
+    params.view = viewMode;
+    if (searchQuery) params.search = searchQuery;
+    if (statusFilter !== 'All') params.status = statusFilter;
+    if (sortOption) params.sort = sortOption;
+
+    setSearchParams(params, { replace: true });
+  }, [viewMode, searchQuery, statusFilter, sortOption, setSearchParams]);
 
   return (
     <Box sx={{ width: '100%', p: 1, boxSizing: 'border-box' }}>
       <Stack spacing={3}>
-        <HeaderActions onAddTask={() => setOpenModal(true)} />
-        <FilterBar
+        <HeaderActions
+          onAddTask={() => setOpenModal(true)}
           statusFilter={statusFilter}
           setStatusFilter={setStatusFilter}
           viewMode={viewMode}
@@ -59,12 +61,13 @@ export default function TasksPage() {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           sortOption={sortOption}
-          onSearch={setSearchQuery}
           setSortOption={setSortOption}
+          onSearch={setSearchQuery}
         />
         <TaskList
           isLoading={isLoading}
           tasks={tasks}
+          error={error}
           viewMode={viewMode}
           onEditTask={handleEditTask}
           onDeleteTask={handleDeleteTask}

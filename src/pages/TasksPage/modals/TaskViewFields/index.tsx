@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import type { TaskViewFieldsProps } from './type';
 
 export default function TaskViewFields({ task }: TaskViewFieldsProps) {
-  const { t } = useTranslation('task_info_dialog');
+  const { t } = useTranslation('task_dialog');
 
   return (
     <Box display='flex' flexDirection='column' gap={2}>

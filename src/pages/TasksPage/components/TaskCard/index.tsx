@@ -1,11 +1,10 @@
 import { useState, type MouseEvent } from 'react';
-import { Card, CardContent, Typography, IconButton } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
+import { Card, CardContent, Typography, Box, Button } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import type { Task } from 'types/task';
 import type { TaskCardProps } from './type';
-import TaskInfoDialog from '../../modals/TaskInfoDialog';
-import DeleteConfirmDialog from '../../modals/DeleteTask';
-import TaskMenu from './TaskCardMenu';
+import { TaskInfoDialog, DeleteConfirmDialog } from '../../modals';
 import { useTranslation } from 'react-i18next';
 
 export default function TaskCard({
@@ -16,27 +15,17 @@ export default function TaskCard({
 }: TaskCardProps) {
   const [openDialog, setOpenDialog] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const { t } = useTranslation('task_card');
 
-  const handleSettingsClick = (event: MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleEditClick = () => {
+  const handleEditClick = (e: MouseEvent) => {
+    e.stopPropagation();
     setEditMode(true);
     setOpenDialog(true);
-    handleMenuClose();
   };
 
-  const handleDeleteClick = () => {
-    handleMenuClose();
+  const handleDeleteClick = (e: MouseEvent) => {
+    e.stopPropagation();
     setDeleteConfirmOpen(true);
   };
 
@@ -71,71 +60,92 @@ export default function TaskCard({
           cursor: 'pointer',
           position: 'relative',
           paddingTop: '0.5rem',
-          paddingRight: '0.5rem',
+          paddingRight: viewMode === 'list' ? '4rem' : '0.5rem',
+          display: viewMode === 'list' ? 'flex' : 'block',
+          alignItems: viewMode === 'list' ? 'center' : undefined,
+          gap: viewMode === 'list' ? 2 : 0,
+          paddingBottom: viewMode === 'grid' ? '3rem' : undefined,
         }}
         onClick={() => setOpenDialog(true)}
       >
-        <IconButton
-          aria-label='settings'
-          onClick={handleSettingsClick}
+        <CardContent
           sx={{
-            position: 'absolute',
-            top: 4,
-            right: 4,
-            zIndex: 10,
+            flexGrow: 1,
+            paddingBottom: viewMode === 'list' ? '16px' : undefined,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
           }}
         >
-          <SettingsIcon />
-        </IconButton>
-
-        <CardContent>
-          <Typography
-            variant='h6'
-            fontWeight='bold'
-            sx={{
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
+          <Typography variant='h6' fontWeight='bold'>
             {task.title}
           </Typography>
-          <Typography
-            variant='body2'
-            sx={{
-              fontSize: '18px',
-              color: 'text.secondary',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
+          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
             {t('fields.description')}: {task.description}
           </Typography>
-          <Typography
-            variant='body2'
-            sx={{
-              fontSize: '18px',
-              color: 'text.secondary',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
+          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
             {t('fields.completed')}:{' '}
             {task.completed
               ? t('fields.completed_true')
               : t('fields.completed_false')}
           </Typography>
         </CardContent>
-      </Card>
 
-      <TaskMenu
-        anchorEl={anchorEl}
-        onClose={handleMenuClose}
-        onEditClick={handleEditClick}
-        onDeleteClick={handleDeleteClick}
-      />
+        {viewMode === 'list' && (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            <Button
+              variant='outlined'
+              size='small'
+              startIcon={<EditIcon />}
+              onClick={handleEditClick}
+            >
+              {t('edit')}
+            </Button>
+            <Button
+              variant='outlined'
+              color='error'
+              size='small'
+              startIcon={<DeleteIcon />}
+              onClick={handleDeleteClick}
+            >
+              {t('delete')}
+            </Button>
+          </Box>
+        )}
+
+        {viewMode === 'grid' && (
+          <Box
+            sx={{
+              position: 'absolute',
+              bottom: 8,
+              left: 0,
+              right: 0,
+              display: 'flex',
+              justifyContent: 'center',
+              gap: 2,
+              px: 2,
+            }}
+          >
+            <Button
+              variant='outlined'
+              size='small'
+              startIcon={<EditIcon />}
+              onClick={handleEditClick}
+            >
+              {t('edit')}
+            </Button>
+            <Button
+              variant='outlined'
+              color='error'
+              size='small'
+              startIcon={<DeleteIcon />}
+              onClick={handleDeleteClick}
+            >
+              {t('delete')}
+            </Button>
+          </Box>
+        )}
+      </Card>
 
       <TaskInfoDialog
         open={openDialog}

@@ -1,5 +1,5 @@
-import type { CreateTask } from 'types/task';
+import type { Task } from 'types/task';
 
 export interface TaskViewFieldsProps {
-  task: CreateTask;
+  task: Task;
 }

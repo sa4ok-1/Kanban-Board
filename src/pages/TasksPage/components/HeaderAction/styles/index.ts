@@ -1,6 +1,6 @@
 import type { Theme } from '@mui/material/styles';
 
-export const filterBarStyles = {
+export const headerActionsStyles = {
   container: {
     p: { xs: 2, sm: 3 },
     bgcolor: 'background.paper',
@@ -22,15 +22,17 @@ export const filterBarStyles = {
   }),
   select: {
     minWidth: { xs: '100%', sm: 120 },
-    mb: { xs: 2, sm: 0 },
+    width: { xs: '100%', sm: 'auto' },
+    mb: { xs: 1, sm: 0 },
   },
   sortSelect: {
     minWidth: { xs: '100%', sm: 150 },
-    mb: { xs: 2, sm: 0 },
+    width: { xs: '100%', sm: 'auto' },
+    mb: { xs: 1, sm: 0 },
   },
   toggleButtonGroup: (theme: Theme) => ({
     width: { xs: '100%', sm: 'auto' },
-    mb: { xs: 2, sm: 0 },
+    mb: { xs: 1, sm: 0 },
     bgcolor:
       theme.palette.mode === 'dark'
         ? 'rgba(255,255,255,0.05)'
@@ -50,13 +52,12 @@ export const filterBarStyles = {
     },
   }),
   searchBox: {
-    minWidth: { xs: '100%', sm: 200 },
-    width: { xs: '100%', sm: 'auto' },
+    width: { xs: '100%', sm: 200 },
   },
   flexGrowStack: {
     flexGrow: 1,
-    minWidth: { xs: '100%', sm: 'auto' },
+    width: { xs: '100%', sm: 'auto' },
     flexWrap: 'wrap' as const,
-    mb: { xs: 3, sm: 0 },
+    mb: { xs: 2, sm: 0 },
   },
 };

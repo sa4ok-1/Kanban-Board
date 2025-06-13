@@ -1,4 +1,4 @@
-import type { CreateTaskPayload } from 'api/services/TaskService/types/type';
+import type { CreateTaskPayload } from 'api/services/TaskService/types';
 
 export interface CreateTaskDialogProps {
   open: boolean;

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, type FocusEvent, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Box,
@@ -39,7 +39,7 @@ export default function SearchInput({
   const handleMobileClose = () => setMobileOpen(false);
 
   const handleDesktopBlur = useCallback(
-    (e: React.FocusEvent<HTMLInputElement>) => {
+    (e: FocusEvent<HTMLInputElement>) => {
       const relatedTarget = e.relatedTarget as HTMLElement | null;
 
       if (
@@ -56,7 +56,6 @@ export default function SearchInput({
     [searchQuery],
   );
 
-  // Додаємо debounce
   useEffect(() => {
     const handler = setTimeout(() => {
       onSearch(searchQuery);

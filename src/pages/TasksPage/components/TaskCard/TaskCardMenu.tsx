@@ -1,8 +1,9 @@
-import { Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import type { MouseEvent } from 'react';
+import { type MouseEvent } from 'react';
 import type { TaskMenuProps } from './type';
+import { useTranslation } from 'react-i18next';
 
 export default function TaskMenu({
   anchorEl,
@@ -15,6 +16,7 @@ export default function TaskMenu({
   const handleClick = (e: MouseEvent) => {
     e.stopPropagation();
   };
+  const { t } = useTranslation('tooltip');
 
   return (
     <Menu
@@ -36,18 +38,20 @@ export default function TaskMenu({
         },
       }}
     >
-      <MenuItem onClick={onEditClick}>
-        <ListItemIcon>
-          <EditIcon fontSize='small' color='info' />
-        </ListItemIcon>
-        <ListItemText>Edit</ListItemText>
-      </MenuItem>
-      <MenuItem onClick={onDeleteClick}>
-        <ListItemIcon>
-          <DeleteIcon fontSize='small' color='error' />
-        </ListItemIcon>
-        <ListItemText>Delete</ListItemText>
-      </MenuItem>
+      <Tooltip title={t('edit_tooltip')} arrow>
+        <MenuItem onClick={onEditClick}>
+          <ListItemIcon>
+            <EditIcon fontSize='small' color='custom' />
+          </ListItemIcon>
+        </MenuItem>
+      </Tooltip>
+      <Tooltip title={t('delete_tooltip')} arrow>
+        <MenuItem onClick={onDeleteClick}>
+          <ListItemIcon>
+            <DeleteIcon fontSize='small' color='error' />
+          </ListItemIcon>
+        </MenuItem>
+      </Tooltip>
     </Menu>
   );
 }
